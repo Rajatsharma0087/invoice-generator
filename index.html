@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="InvoiceFlow - Free Invoice Generator for Freelancers">
+    <title>InvoiceFlow - Invoice Generator</title>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Theme Toggle -->
+    <button class="theme-toggle" id="themeToggle">
+        <i class="fas fa-moon"></i>
+    </button>
+
+    <!-- App Layout -->
+    <div class="app">
+
+        <!-- LEFT PANEL: Form -->
+        <div class="form-panel">
+
+            <!-- Logo -->
+            <div class="form-header">
+                <div class="logo">
+                    <i class="fas fa-file-invoice-dollar"></i>
+                    <span>Invoice<strong>Flow</strong></span>
+                </div>
+                <p class="tagline">
+                    Fill in the details → 
+                    See live preview → 
+                    Download PDF
+                </p>
+            </div>
+
+            <!-- YOUR DETAILS -->
+            <div class="form-section">
+                <div class="section-title">
+                    <i class="fas fa-user-circle"></i>
+                    <h3>Your Details</h3>
+                </div>
+                <div class="form-grid">
+                    <div class="form-group span-2">
+                        <label for="fromName">
+                            Your Name / Business Name
+                        </label>
+                        <input
+                            type="text"
+                            id="fromName"
+                            placeholder="Rajat Sharma | Web Developer"
+                        >
+                    </div>
+                    <div class="form-group span-2">
+                        <label for="fromEmail">Email Address</label>
+                        <input
+                            type="email"
+                            id="fromEmail"
+                            placeholder="rajat@example.com"
+                        >
+                    </div>
+                    <div class="form-group span-2">
+                        <label for="fromAddress">Address</label>
+                        <input
+                            type="text"
+                            id="fromAddress"
+                            placeholder="City, State, India"
+                        >
+                    </div>
+                    <div class="form-group">
+                        <label for="fromPhone">Phone</label>
+                        <input
+                            type="text"
+                            id="fromPhone"
+                            placeholder="+91 XXXXX XXXXX"
+                        >
+                    </div>
+                    <div class="form-group">
+                        <label for="fromWebsite">Website</label>
+                        <input
+                            type="text"
+                            id="fromWebsite"
+                            placeholder="yoursite.com"
+                        >
+                    </div>
+                </div>
+            </div>
+
+            <!-- CLIENT DETAILS -->
+            <div class="form-section">
+                <div class="section-title">
+                    <i class="fas fa-building"></i>
+                    <h3>Client Details</h3>
+                </div>
+                <div class="form-grid">
+                    <div class="form-group span-2">
+                        <label for="toName">
+                            Client Name / Company
+                        </label>
+                        <input
+                            type="text"
+                            id="toName"
+                            placeholder="Client or Company Name"
+                        >
+                    </div>
+                    <div class="form-group span-2">
+                        <label for="toEmail">Client Email</label>
+                        <input
+                            type="email"
+                            id="toEmail"
+                            placeholder="client@company.com"
+                        >
+                    </div>
+                    <div class="form-group span-2">
+                        <label for="toAddress">Client Address</label>
+                        <input
+                            type="text"
+                            id="toAddress"
+                            placeholder="Client Address"
+                        >
+                    </div>
+                </div>
+            </div>
+
+            <!-- INVOICE DETAILS -->
+            <div class="form-section">
+                <div class="section-title">
+                    <i class="fas fa-file-alt"></i>
+                    <h3>Invoice Details</h3>
+                </div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="invoiceNumber">
+                            Invoice Number
+                        </label>
+                        <input
+                            type="text"
+                            id="invoiceNumber"
+                            placeholder="INV-001"
+                        >
+                    </div>
+                    <div class="form-group">
+                        <label for="currency">Currency</label>
+                        <select id="currency">
+                            <option value="$">USD ($)</option>
+                            <option value="₹">INR (₹)</option>
+                            <option value="€">EUR (€)</option>
+                            <option value="£">GBP (£)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="invoiceDate">Invoice Date</label>
+                        <input type="date" id="invoiceDate">
+                    </div>
+                    <div class="form-group">
+                        <label for="dueDate">Due Date</label>
+                        <input type="date" id="dueDate">
+                    </div>
+                </div>
+            </div>
+
+            <!-- NOTES -->
+            <div class="form-section">
+                <div class="section-title">
+                    <i class="fas fa-sticky-note"></i>
+                    <h3>Notes & Payment</h3>
+                </div>
+                <div class="form-grid">
+                    <div class="form-group span-2">
+                        <label for="paymentTerms">
+                            Payment Method
+                        </label>
+                        <input
+                            type="text"
+                            id="paymentTerms"
+                            placeholder="Bank Transfer / UPI / PayPal"
+                        >
+                    </div>
+                    <div class="form-group span-2">
+                        <label for="notes">Notes</label>
+                        <textarea
+                            id="notes"
+                            rows="3"
+                            placeholder="Thank you for your business! Payment due within 30 days."
+                        ></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Coming Tomorrow Badge -->
+            <div class="coming-soon">
+                <i class="fas fa-clock"></i>
+                <div>
+                    <strong>Line Items + Calculations</strong>
+                    <p>Coming in Day 2 of the build</p>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- RIGHT PANEL: Invoice Preview -->
+        <div class="preview-panel">
+
+            <div class="preview-topbar">
+                <h2>
+                    <i class="fas fa-eye"></i>
+                    Live Preview
+                </h2>
+                <span class="preview-badge">Updates as you type</span>
+            </div>
+
+            <!-- Invoice Document -->
+            <div class="invoice-wrapper">
+                <div class="invoice" id="invoice">
+
+                    <!-- Invoice Header -->
+                    <div class="invoice-header">
+                        <div class="sender-info">
+                            <h2 id="prev-fromName" class="sender-name">
+                                Your Name
+                            </h2>
+                            <p id="prev-fromEmail" class="sender-detail"></p>
+                            <p id="prev-fromAddress" class="sender-detail"></p>
+                            <p id="prev-fromPhone" class="sender-detail"></p>
+                            <p id="prev-fromWebsite" class="sender-detail"></p>
+                        </div>
+                        <div class="invoice-title-block">
+                            <h1 class="invoice-word">INVOICE</h1>
+                            <div class="invoice-meta">
+                                <div class="meta-item">
+                                    <span class="meta-label">Invoice #</span>
+                                    <span 
+                                        id="prev-invoiceNumber" 
+                                        class="meta-value">
+                                        INV-001
+                                    </span>
+                                </div>
+                                <div class="meta-item">
+                                    <span class="meta-label">Date</span>
+                                    <span 
+                                        id="prev-invoiceDate" 
+                                        class="meta-value">
+                                        -
+                                    </span>
+                                </div>
+                                <div class="meta-item">
+                                    <span class="meta-label">Due</span>
+                                    <span 
+                                        id="prev-dueDate" 
+                                        class="meta-value">
+                                        -
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Gradient Bar -->
+                    <div class="invoice-bar"></div>
+
+                    <!-- Bill To Section -->
+                    <div class="invoice-parties">
+                        <div class="party-block">
+                            <p class="party-label">FROM</p>
+                            <p 
+                                id="prev-fromName2" 
+                                class="party-name">
+                                Your Name
+                            </p>
+                            <p 
+                                id="prev-fromAddress2" 
+                                class="party-detail">
+                            </p>
+                        </div>
+                        <div class="party-block">
+                            <p class="party-label">BILL TO</p>
+                            <p 
+                                id="prev-toName" 
+                                class="party-name">
+                                Client Name
+                            </p>
+                            <p 
+                                id="prev-toEmail" 
+                                class="party-detail">
+                            </p>
+                            <p 
+                                id="prev-toAddress" 
+                                class="party-detail">
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Items Table Placeholder -->
+                    <div class="table-placeholder">
+                        <div class="placeholder-header">
+                            <span>Description</span>
+                            <span>Qty</span>
+                            <span>Rate</span>
+                            <span>Amount</span>
+                        </div>
+                        <div class="placeholder-rows">
+                            <div class="placeholder-row">
+                                <div class="placeholder-bar wide"></div>
+                                <div class="placeholder-bar narrow"></div>
+                                <div class="placeholder-bar narrow"></div>
+                                <div class="placeholder-bar narrow"></div>
+                            </div>
+                            <div class="placeholder-row">
+                                <div class="placeholder-bar wide"></div>
+                                <div class="placeholder-bar narrow"></div>
+                                <div class="placeholder-bar narrow"></div>
+                                <div class="placeholder-bar narrow"></div>
+                            </div>
+                            <div class="placeholder-row">
+                                <div class="placeholder-bar wide"></div>
+                                <div class="placeholder-bar narrow"></div>
+                                <div class="placeholder-bar narrow"></div>
+                                <div class="placeholder-bar narrow"></div>
+                            </div>
+                        </div>
+                        <p class="placeholder-text">
+                            <i class="fas fa-info-circle"></i>
+                            Line items coming Day 2
+                        </p>
+                    </div>
+
+                    <!-- Totals Placeholder -->
+                    <div class="totals-placeholder">
+                        <div class="totals-row">
+                            <span>Subtotal</span>
+                            <span id="prev-currency">$</span>
+                            <span>0.00</span>
+                        </div>
+                        <div class="totals-row">
+                            <span>Tax</span>
+                            <span>+</span>
+                            <span>0.00</span>
+                        </div>
+                        <div class="totals-row total-final">
+                            <span>Total</span>
+                            <span id="prev-currency2">$</span>
+                            <span>0.00</span>
+                        </div>
+                    </div>
+
+                    <!-- Payment + Notes -->
+                    <div class="invoice-bottom">
+                        <div class="invoice-payment">
+                            <p class="bottom-label">PAYMENT METHOD</p>
+                            <p id="prev-paymentTerms" class="bottom-value">
+                                -
+                            </p>
+                        </div>
+                        <div class="invoice-notes">
+                            <p class="bottom-label">NOTES</p>
+                            <p id="prev-notes" class="bottom-value">
+                                Thank you for your business!
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Footer Branding -->
+                    <div class="invoice-branding">
+                        <p>
+                            Generated by 
+                            <strong>InvoiceFlow</strong> 
+                            by Rajat Sharma
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
