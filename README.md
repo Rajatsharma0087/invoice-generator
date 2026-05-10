@@ -1,16 +1,16 @@
 # InvoiceFlow - Invoice Generator 🧾
 
-> **🚧 Work In Progress — Building in public over 3 days**
+> **🚧 Work In Progress — Day 2 of 3 complete**
 
-[![Day](https://img.shields.io/badge/Build-Day%201%20of%203-orange?style=for-the-badge)](https://github.com/Rajatsharma0087/invoice-generator)
+[![Day](https://img.shields.io/badge/Build-Day%202%20of%203-blue?style=for-the-badge)](https://github.com/Rajatsharma0087/invoice-generator)
 [![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)](.)
 [![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)](.)
 [![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)](.)
 
-A free, open-source invoice generator for freelancers.
-No login. No subscription. Just fill and download.
+A free invoice generator for freelancers.
+No login. No subscription. Fill and download.
 
-[Watch it being built live on Twitter →](https://twitter.com/Rajatsharma_87)
+[Follow the build on Twitter →](https://twitter.com/Rajatsharma_87)
 
 ---
 
@@ -18,25 +18,35 @@ No login. No subscription. Just fill and download.
 
 | Day | Status | What Was Built |
 |-----|--------|----------------|
-| Day 1 | ✅ Done | Form layout, live preview, theme toggle |
-| Day 2 | 🔄 Tomorrow | Line items, calculations, currency |
-| Day 3 | ⏳ Coming | PDF download, print, mobile polish |
+| Day 1 | ✅ Done | Layout, live preview, theme toggle |
+| Day 2 | ✅ Done | Line items, calculations, tax & discount |
+| Day 3 | ⏳ Tomorrow | PDF download, print, final polish |
 
 ---
 
-## ✨ Planned Features
+## ✨ Features Built So Far
 
+### Day 1:
 - 📋 Your details + client details form
 - 🔢 Auto-generated invoice number
-- 📅 Auto invoice + due date
-- ➕ Add/remove line items dynamically
-- 🧮 Auto calculate subtotal + tax + discount
+- 📅 Auto invoice + due date (30 days)
+- 👁️ Live preview updates as you type
+- 🌙 Dark / Light mode with persistence
 - 💱 Multi-currency ($, ₹, €, £)
-- 👁️ Live preview as you type
+
+### Day 2 (Today):
+- ➕ Add / remove line items dynamically
+- 🧮 Auto calculate subtotal in real time
+- 💰 Tax percentage calculator
+- 🏷️ Discount percentage calculator
+- 📊 Grand total with live updates
+- 🔄 Full reset button
+
+### Day 3 (Tomorrow):
 - 📄 Download as PDF
 - 🖨️ Print invoice
-- 🌙 Dark / Light mode
-- 📱 Fully responsive
+- 📱 Mobile polish
+- 🐛 Bug fixes
 
 ---
 
@@ -45,10 +55,12 @@ No login. No subscription. Just fill and download.
 | Tech | Purpose |
 |------|---------|
 | HTML5 | Structure |
-| CSS3 + Variables | Styling + Dark mode |
-| Vanilla JavaScript | Logic + Live preview |
+| CSS3 + Variables | Styling + Theming |
+| Vanilla JavaScript | All logic |
 | jsPDF (Day 3) | PDF generation |
 | html2canvas (Day 3) | PDF rendering |
+
+**Zero frameworks. Zero npm. Zero build tools.**
 
 ---
 
@@ -56,9 +68,9 @@ No login. No subscription. Just fill and download.
 
 ```
 invoice-generator/
-├── index.html    ← Structure
-├── style.css     ← Styling + Dark mode
-├── script.js     ← Logic + Live preview
+├── index.html    ← Structure + layout
+├── style.css     ← All styling + dark mode
+├── script.js     ← Complete app logic
 └── README.md     ← You are here
 ```
 
@@ -66,14 +78,12 @@ invoice-generator/
 
 ## 🤝 Follow The Build
 
-I'm building this live on Twitter.
-Daily updates. Real progress. Real struggles.
-
 | | |
 |--|--|
 | Twitter | [@Rajatsharma_87](https://twitter.com/Rajatsharma_87) |
 | GitHub | [Rajatsharma0087](https://github.com/Rajatsharma0087) |
+| Portfolio | [rajatsharma0087.github.io](https://rajatsharma0087.github.io/-personal-portfolio/) |
 
 ---
 
-*Building in public | Day 20 of #100DaysOfCode*
+*Day 21 of #100DaysOfCode | Building in public*
