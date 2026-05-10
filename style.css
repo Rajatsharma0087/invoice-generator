@@ -230,6 +230,323 @@ body {
     line-height: 1.5;
 }
 
+/* ===== DAY 2 NEW STYLES ===== */
+
+/* No Items State */
+.no-items {
+    text-align: center;
+    padding: 1.5rem;
+    color: var(--text-light);
+    background: var(--bg-input);
+    border: 1.5px dashed var(--border);
+    border-radius: var(--radius-sm);
+    margin-bottom: 0.75rem;
+}
+
+.no-items i {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    display: block;
+    color: var(--border);
+}
+
+.no-items p {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    margin-bottom: 0.25rem;
+}
+
+.no-items span {
+    font-size: 0.775rem;
+    color: var(--text-light);
+}
+
+/* Item Card */
+.item-card {
+    background: var(--bg-input);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 1rem;
+    margin-bottom: 0.75rem;
+    transition: var(--transition);
+}
+
+.item-card:hover {
+    border-color: var(--primary);
+}
+
+.item-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.875rem;
+}
+
+.item-number {
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--primary);
+}
+
+.btn-remove-item {
+    width: 28px;
+    height: 28px;
+    border: none;
+    background: rgba(231, 76, 60, 0.1);
+    color: #e74c3c;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+}
+
+.btn-remove-item:hover {
+    background: #e74c3c;
+    color: white;
+}
+
+/* Item Fields */
+.item-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.span-full {
+    grid-column: 1 / -1;
+}
+
+.item-numbers {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0.75rem;
+    align-items: end;
+}
+
+.item-amount {
+    padding: 0.65rem 0.875rem;
+    background: rgba(102, 126, 234, 0.08);
+    border: 1.5px solid rgba(102, 126, 234, 0.2);
+    border-radius: 8px;
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--primary);
+}
+
+/* Add Item Button */
+.btn-add-item {
+    width: 100%;
+    padding: 0.875rem;
+    border: 2px dashed var(--border);
+    border-radius: var(--radius-sm);
+    background: transparent;
+    color: var(--primary);
+    font-family: inherit;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 0.25rem;
+}
+
+.btn-add-item:hover {
+    border-color: var(--primary);
+    background: rgba(102, 126, 234, 0.05);
+}
+
+/* Form Actions */
+.form-actions {
+    display: flex;
+    gap: 0.875rem;
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+}
+
+.btn-reset,
+.btn-download {
+    flex: 1;
+    padding: 0.875rem;
+    border-radius: var(--radius-sm);
+    font-family: inherit;
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    transition: var(--transition);
+}
+
+.btn-reset {
+    background: var(--bg-input);
+    border: 1.5px solid var(--border);
+    color: var(--text-secondary);
+}
+
+.btn-reset:hover {
+    border-color: #e74c3c;
+    color: #e74c3c;
+}
+
+.btn-download {
+    background: var(--gradient);
+    border: none;
+    color: white;
+    position: relative;
+}
+
+.btn-download:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.coming-day3 {
+    font-size: 0.65rem;
+    background: rgba(255,255,255,0.25);
+    padding: 0.15rem 0.4rem;
+    border-radius: 4px;
+    font-weight: 600;
+}
+
+/* Invoice Table */
+.invoice-table-wrapper {
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 1.25rem;
+}
+
+.invoice-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.invoice-table thead tr {
+    background: var(--gradient);
+}
+
+.invoice-table thead th {
+    padding: 0.875rem 1rem;
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: white;
+    text-align: left;
+}
+
+.th-num { text-align: right !important; }
+
+.invoice-table tbody tr {
+    border-bottom: 1px solid #f1f5f9;
+    transition: background 0.2s;
+}
+
+.invoice-table tbody tr:hover {
+    background: #f8fafc;
+}
+
+.invoice-table tbody tr:last-child {
+    border-bottom: none;
+}
+
+.invoice-table tbody td {
+    padding: 0.875rem 1rem;
+    font-size: 0.875rem;
+    color: #1e293b;
+}
+
+.td-num { text-align: right; }
+
+.td-amount {
+    font-weight: 700;
+    color: var(--primary) !important;
+}
+
+.empty-items-row td {
+    text-align: center;
+    padding: 2rem !important;
+    color: #94a3b8;
+    font-size: 0.875rem;
+}
+
+.empty-items-row i {
+    margin-right: 0.5rem;
+}
+
+/* Totals Box */
+.invoice-totals {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 1.75rem;
+}
+
+.totals-box {
+    width: 280px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 1.25rem;
+}
+
+.total-line {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0;
+    font-size: 0.875rem;
+    border-bottom: 1px solid #e2e8f0;
+    color: #64748b;
+}
+
+.total-line:last-child {
+    border-bottom: none;
+}
+
+.total-line.grand {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #1e293b;
+    padding-top: 0.875rem;
+    margin-top: 0.25rem;
+    border-top: 2px solid #1e293b;
+    border-bottom: none;
+}
+
+/* Toast */
+.toast {
+    position: fixed;
+    bottom: -80px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #2ecc71;
+    color: white;
+    padding: 0.875rem 1.5rem;
+    border-radius: 10px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    transition: all 0.3s ease;
+    z-index: 9999;
+    white-space: nowrap;
+}
+
+.toast.show {
+    bottom: 2rem;
+}
+
 /* ===== COMING SOON BADGE ===== */
 .coming-soon {
     display: flex;
