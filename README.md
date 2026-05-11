@@ -1,66 +1,72 @@
 # InvoiceFlow - Invoice Generator 🧾
 
-> **🚧 Work In Progress — Day 2 of 3 complete**
+<div align="center">
 
-[![Day](https://img.shields.io/badge/Build-Day%202%20of%203-blue?style=for-the-badge)](https://github.com/Rajatsharma0087/invoice-generator)
-[![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)](.)
-[![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)](.)
-[![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)](.)
+[![Live Demo](https://img.shields.io/badge/Live-Demo-brightgreen?style=for-the-badge)](https://rajatsharma0087.github.io/invoice-generator/)
+[![GitHub](https://img.shields.io/badge/GitHub-Repository-black?style=for-the-badge&logo=github)](https://github.com/Rajatsharma0087/invoice-generator)
+![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
 
-A free invoice generator for freelancers.
-No login. No subscription. Fill and download.
+**A free, professional invoice generator for freelancers.**
+**No login. No subscription. No nonsense.**
 
-[Follow the build on Twitter →](https://twitter.com/Rajatsharma_87)
+[View Live Demo](https://rajatsharma0087.github.io/invoice-generator/)
 
----
-
-## 🚀 Build Progress
-
-| Day | Status | What Was Built |
-|-----|--------|----------------|
-| Day 1 | ✅ Done | Layout, live preview, theme toggle |
-| Day 2 | ✅ Done | Line items, calculations, tax & discount |
-| Day 3 | ⏳ Tomorrow | PDF download, print, final polish |
+</div>
 
 ---
 
-## ✨ Features Built So Far
+## ✨ Features
 
-### Day 1:
-- 📋 Your details + client details form
-- 🔢 Auto-generated invoice number
-- 📅 Auto invoice + due date (30 days)
-- 👁️ Live preview updates as you type
-- 🌙 Dark / Light mode with persistence
-- 💱 Multi-currency ($, ₹, €, £)
+### Core
+- 👁️ **Live Preview** — Invoice updates as you type
+- ➕ **Dynamic Line Items** — Add/remove services instantly
+- 🧮 **Auto Calculations** — Subtotal, tax, discount, total
+- 📄 **PDF Download** — One click, professional PDF
+- 🖨️ **Print Ready** — Clean print layout
 
-### Day 2 (Today):
-- ➕ Add / remove line items dynamically
-- 🧮 Auto calculate subtotal in real time
-- 💰 Tax percentage calculator
-- 🏷️ Discount percentage calculator
-- 📊 Grand total with live updates
-- 🔄 Full reset button
-
-### Day 3 (Tomorrow):
-- 📄 Download as PDF
-- 🖨️ Print invoice
-- 📱 Mobile polish
-- 🐛 Bug fixes
+### Extra
+- 🌙 **Dark/Light Mode** — Persists in localStorage
+- 💱 **Multi-Currency** — USD, INR, EUR, GBP
+- 🔢 **Auto Invoice Number** — Generated on load
+- 📅 **Smart Dates** — Today + 30 days due date
+- 📱 **Fully Responsive** — Works on all devices
+- ✅ **Input Validation** — Checks before PDF generation
 
 ---
 
-## 🛠️ Built With
+## 🏗️ Built In 3 Days
+
+| Day | What Was Built |
+|-----|---------------|
+| Day 1 | Layout, form, live preview, theme |
+| Day 2 | Line items, calculations, tax/discount |
+| Day 3 | PDF download, print, polish, launch |
+
+---
+
+## 🛠️ Tech Stack
 
 | Tech | Purpose |
 |------|---------|
 | HTML5 | Structure |
-| CSS3 + Variables | Styling + Theming |
+| CSS3 + Variables | Styling + Dark mode |
 | Vanilla JavaScript | All logic |
-| jsPDF (Day 3) | PDF generation |
-| html2canvas (Day 3) | PDF rendering |
+| jsPDF | PDF generation |
+| html2canvas | Invoice rendering to PDF |
 
-**Zero frameworks. Zero npm. Zero build tools.**
+**Zero frameworks. Zero npm. Open index.html and it works.**
+
+---
+
+## 🚀 Quick Start
+
+```bash
+git clone https://github.com/Rajatsharma0087/invoice-generator.git
+cd invoice-generator
+# Open index.html in browser
+```
 
 ---
 
@@ -68,22 +74,46 @@ No login. No subscription. Fill and download.
 
 ```
 invoice-generator/
-├── index.html    ← Structure + layout
-├── style.css     ← All styling + dark mode
-├── script.js     ← Complete app logic
+├── index.html    ← Complete structure
+├── style.css     ← All styles + dark mode + print
+├── script.js     ← Complete logic + PDF
 └── README.md     ← You are here
 ```
 
 ---
 
-## 🤝 Follow The Build
+## 💡 Key Learnings
+
+```javascript
+// The calculation logic — simpler than it looks:
+const subtotal    = items.reduce((sum, i) =>
+    sum + (i.quantity * i.rate), 0);
+const discount    = subtotal * (discountRate / 100);
+const tax         = (subtotal - discount) * (taxRate / 100);
+const grandTotal  = subtotal - discount + tax;
+```
+
+- html2canvas captures DOM → jsPDF converts to PDF
+- CSS @media print hides UI, shows only invoice
+- One updateAll() function keeps everything in sync
+- Data attributes pattern for dynamic item updates
+
+---
+
+## 🤝 Connect
 
 | | |
 |--|--|
 | Twitter | [@Rajatsharma_87](https://twitter.com/Rajatsharma_87) |
-| GitHub | [Rajatsharma0087](https://github.com/Rajatsharma0087) |
 | Portfolio | [rajatsharma0087.github.io](https://rajatsharma0087.github.io/-personal-portfolio/) |
+| GitHub | [Rajatsharma0087](https://github.com/Rajatsharma0087) |
+
+**Open for freelance work → DM on Twitter 📩**
 
 ---
 
-*Day 21 of #100DaysOfCode | Building in public*
+<div align="center">
+Made with ❤️ by Rajat Sharma
+<br>
+Day 22 of #100DaysOfCode
+</div>
