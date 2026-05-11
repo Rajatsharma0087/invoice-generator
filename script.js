@@ -2,11 +2,12 @@
 let items = [];
 let nextId = 1;
 
-// ===== DOM ELEMENTS =====
+// ===== DOM =====
 const themeToggle = document.getElementById('themeToggle');
-const addItemBtn = document.getElementById('addItemBtn');
-const resetBtn = document.getElementById('resetBtn');
-const itemsContainer = document.getElementById('itemsContainer');
+const addItemBtn  = document.getElementById('addItemBtn');
+const resetBtn    = document.getElementById('resetBtn');
+const downloadBtn = document.getElementById('downloadBtn');
+const printBtn    = document.getElementById('printBtn');
 
 // ===== THEME =====
 function loadTheme() {
@@ -28,27 +29,26 @@ themeToggle.addEventListener('click', () => {
 
 // ===== AUTO INVOICE NUMBER =====
 function generateInvoiceNumber() {
-    const num = Math.floor(Math.random() * 900) + 100;
+    const num    = Math.floor(Math.random() * 900) + 100;
     const invNum = `INV-${num}`;
-    document.getElementById('invoiceNumber').value = invNum;
+    document.getElementById('invoiceNumber').value    = invNum;
     document.getElementById('prev-invoiceNumber').textContent = invNum;
 }
 
 // ===== DEFAULT DATES =====
 function setDefaultDates() {
     const today = new Date();
-    const due = new Date();
+    const due   = new Date();
     due.setDate(due.getDate() + 30);
 
-    const toISO = (d) => d.toISOString().split('T')[0];
-    const toReadable = (d) => d.toLocaleDateString('en-IN', {
-        day: 'numeric',
-        month: 'short',
-        year: 'numeric'
+    const toISO      = d => d.toISOString().split('T')[0];
+    const toReadable = d => d.toLocaleDateString('en-IN', {
+        day: 'numeric', month: 'short', year: 'numeric'
     });
 
     document.getElementById('invoiceDate').value = toISO(today);
-    document.getElementById('dueDate').value = toISO(due);
+    document.getElementById('dueDate').value     = toISO(due);
+
     document.getElementById('prev-invoiceDate').textContent =
         toReadable(today);
     document.getElementById('prev-dueDate').textContent =
@@ -74,7 +74,7 @@ const fieldMappings = [
 
 function setupLivePreview() {
     fieldMappings.forEach(({ input, preview }) => {
-        const inputEl = document.getElementById(input);
+        const inputEl   = document.getElementById(input);
         const previewEl = document.getElementById(preview);
         if (!inputEl || !previewEl) return;
 
@@ -85,166 +85,118 @@ function setupLivePreview() {
 
     // Dates
     document.getElementById('invoiceDate')
-        .addEventListener('change', (e) => {
-            const date = new Date(e.target.value);
-            document.getElementById('prev-invoiceDate').textContent =
-                date.toLocaleDateString('en-IN', {
-                    day: 'numeric',
-                    month: 'short',
-                    year: 'numeric'
+        .addEventListener('change', e => {
+            document.getElementById('prev-invoiceDate')
+                .textContent = new Date(e.target.value)
+                .toLocaleDateString('en-IN', {
+                    day: 'numeric', month: 'short', year: 'numeric'
                 });
         });
 
     document.getElementById('dueDate')
-        .addEventListener('change', (e) => {
-            const date = new Date(e.target.value);
-            document.getElementById('prev-dueDate').textContent =
-                date.toLocaleDateString('en-IN', {
-                    day: 'numeric',
-                    month: 'short',
-                    year: 'numeric'
+        .addEventListener('change', e => {
+            document.getElementById('prev-dueDate')
+                .textContent = new Date(e.target.value)
+                .toLocaleDateString('en-IN', {
+                    day: 'numeric', month: 'short', year: 'numeric'
                 });
         });
 
-    // Currency
-    document.getElementById('currency')
-        .addEventListener('change', updateAll);
-
-    // Tax + Discount
-    document.getElementById('taxRate')
-        .addEventListener('input', updateAll);
-    document.getElementById('discount')
-        .addEventListener('input', updateAll);
+    // Currency + Tax + Discount
+    ['currency', 'taxRate', 'discount'].forEach(id => {
+        document.getElementById(id)
+            .addEventListener('input',  updateAll);
+        document.getElementById(id)
+            .addEventListener('change', updateAll);
+    });
 }
 
-// ===== GET CURRENCY =====
+// ===== CURRENCY =====
 function getCurrency() {
     return document.getElementById('currency').value || '$';
 }
 
 // ===== ADD ITEM =====
 function addItem() {
-    const item = {
-        id: nextId++,
-        description: '',
-        quantity: 1,
-        rate: 0
-    };
-    items.push(item);
+    items.push({ id: nextId++, description: '', quantity: 1, rate: 0 });
     renderItems();
     updateAll();
 }
 
 // ===== REMOVE ITEM =====
 function removeItem(id) {
-    items = items.filter(item => item.id !== id);
+    items = items.filter(i => i.id !== id);
     renderItems();
     updateAll();
 }
 
-// ===== UPDATE ITEM FIELD =====
+// ===== UPDATE ITEM =====
 function updateItemField(id, field, value) {
     const item = items.find(i => i.id === id);
     if (!item) return;
-
-    if (field === 'description') {
-        item[field] = value;
-    } else {
-        item[field] = parseFloat(value) || 0;
-    }
-
+    item[field] = field === 'description'
+        ? value
+        : parseFloat(value) || 0;
     updateAll();
 }
 
-// ===== RENDER ITEMS IN FORM =====
+// ===== RENDER FORM ITEMS =====
 function renderItems() {
-    if (!itemsContainer) return;
+    const container = document.getElementById('itemsContainer');
+    if (!container) return;
 
     if (items.length === 0) {
-        itemsContainer.innerHTML = `
+        container.innerHTML = `
             <div class="no-items">
                 <i class="fas fa-inbox"></i>
                 <p>No items yet</p>
                 <span>Click "Add New Item" below</span>
-            </div>
-        `;
+            </div>`;
         return;
     }
 
-    itemsContainer.innerHTML = items.map((item, index) => `
+    container.innerHTML = items.map((item, index) => `
         <div class="item-card" data-id="${item.id}">
             <div class="item-card-header">
                 <span class="item-number">Item ${index + 1}</span>
-                <button
-                    class="btn-remove-item"
-                    onclick="removeItem(${item.id})"
-                    title="Remove item"
-                >
+                <button class="btn-remove-item"
+                        onclick="removeItem(${item.id})">
                     <i class="fas fa-times"></i>
                 </button>
             </div>
             <div class="item-fields">
                 <div class="form-group span-full">
                     <label>Description</label>
-                    <input
-                        type="text"
-                        placeholder="e.g. Landing Page Design"
-                        value="${item.description}"
-                        onchange="updateItemField(
-                            ${item.id},
-                            'description',
-                            this.value
-                        )"
-                        oninput="updateItemField(
-                            ${item.id},
-                            'description',
-                            this.value
-                        )"
-                    >
+                    <input type="text"
+                           placeholder="e.g. Landing Page Design"
+                           value="${item.description}"
+                           oninput="updateItemField(
+                               ${item.id},'description',this.value)">
                 </div>
                 <div class="item-numbers">
                     <div class="form-group">
                         <label>Quantity</label>
-                        <input
-                            type="number"
-                            value="${item.quantity}"
-                            min="1"
-                            onchange="updateItemField(
-                                ${item.id},
-                                'quantity',
-                                this.value
-                            )"
-                            oninput="updateItemField(
-                                ${item.id},
-                                'quantity',
-                                this.value
-                            )"
-                        >
+                        <input type="number"
+                               value="${item.quantity}"
+                               min="1"
+                               oninput="updateItemField(
+                                   ${item.id},'quantity',this.value)">
                     </div>
                     <div class="form-group">
                         <label>Rate (${getCurrency()})</label>
-                        <input
-                            type="number"
-                            value="${item.rate}"
-                            min="0"
-                            placeholder="0"
-                            onchange="updateItemField(
-                                ${item.id},
-                                'rate',
-                                this.value
-                            )"
-                            oninput="updateItemField(
-                                ${item.id},
-                                'rate',
-                                this.value
-                            )"
-                        >
+                        <input type="number"
+                               value="${item.rate}"
+                               min="0"
+                               placeholder="0"
+                               oninput="updateItemField(
+                                   ${item.id},'rate',this.value)">
                     </div>
                     <div class="form-group">
                         <label>Amount</label>
                         <div class="item-amount">
-                            ${getCurrency()}${(item.quantity * item.rate)
-                                .toFixed(2)}
+                            ${getCurrency()}${
+                                (item.quantity * item.rate).toFixed(2)
+                            }
                         </div>
                     </div>
                 </div>
@@ -255,20 +207,15 @@ function renderItems() {
 
 // ===== UPDATE PREVIEW TABLE =====
 function updatePreviewTable() {
-    const tbody = document.getElementById('prev-itemsBody');
-    if (!tbody) return;
-
+    const tbody    = document.getElementById('prev-itemsBody');
     const currency = getCurrency();
+    if (!tbody) return;
 
     if (items.length === 0) {
         tbody.innerHTML = `
             <tr class="empty-items-row">
-                <td colspan="4">
-                    <i class="fas fa-arrow-left"></i>
-                    Add items on the left
-                </td>
-            </tr>
-        `;
+                <td colspan="4">Add items on the left</td>
+            </tr>`;
         return;
     }
 
@@ -288,47 +235,32 @@ function updatePreviewTable() {
     `).join('');
 }
 
-// ===== CALCULATE TOTALS =====
+// ===== CALCULATE =====
 function calculateTotals() {
-    const taxRate = parseFloat(
-        document.getElementById('taxRate').value
-    ) || 0;
+    const taxRate      = parseFloat(
+        document.getElementById('taxRate').value) || 0;
     const discountRate = parseFloat(
-        document.getElementById('discount').value
-    ) || 0;
+        document.getElementById('discount').value) || 0;
 
-    const subtotal = items.reduce((sum, item) => {
-        return sum + (item.quantity * item.rate);
-    }, 0);
+    const subtotal     = items.reduce((sum, i) =>
+        sum + (i.quantity * i.rate), 0);
+    const discountAmt  = subtotal * (discountRate / 100);
+    const afterDisc    = subtotal - discountAmt;
+    const taxAmt       = afterDisc * (taxRate / 100);
+    const grandTotal   = afterDisc + taxAmt;
 
-    const discountAmt = subtotal * (discountRate / 100);
-    const afterDiscount = subtotal - discountAmt;
-    const taxAmt = afterDiscount * (taxRate / 100);
-    const grandTotal = afterDiscount + taxAmt;
-
-    return {
-        subtotal,
-        discountAmt,
-        taxAmt,
-        grandTotal,
-        taxRate,
-        discountRate
-    };
+    return { subtotal, discountAmt, taxAmt,
+             grandTotal, taxRate, discountRate };
 }
 
-// ===== UPDATE TOTALS IN PREVIEW =====
+// ===== UPDATE TOTALS =====
 function updateTotals() {
     const currency = getCurrency();
     const {
-        subtotal,
-        discountAmt,
-        taxAmt,
-        grandTotal,
-        taxRate,
-        discountRate
+        subtotal, discountAmt, taxAmt,
+        grandTotal, taxRate, discountRate
     } = calculateTotals();
 
-    // Update preview totals
     const set = (id, val) => {
         const el = document.getElementById(id);
         if (el) el.textContent = val;
@@ -342,10 +274,9 @@ function updateTotals() {
         `${currency}${taxAmt.toFixed(2)}`);
     set('prev-grandTotal',
         `${currency}${grandTotal.toFixed(2)}`);
-    set('prev-taxPct', taxRate);
+    set('prev-taxPct',      taxRate);
     set('prev-discountPct', discountRate);
 
-    // Show/hide discount line
     const discountLine = document.getElementById('discountLine');
     if (discountLine) {
         discountLine.style.display =
@@ -353,57 +284,124 @@ function updateTotals() {
     }
 }
 
-// ===== UPDATE EVERYTHING =====
+// ===== UPDATE ALL =====
 function updateAll() {
     renderItems();
     updatePreviewTable();
     updateTotals();
 }
 
+// ===== DOWNLOAD PDF =====
+downloadBtn.addEventListener('click', async () => {
+    // Validate
+    const fromName = document.getElementById('fromName').value;
+    const toName   = document.getElementById('toName').value;
+
+    if (!fromName || !toName) {
+        showToast('Please fill Your Name and Client Name first ⚠️', 'warn');
+        return;
+    }
+
+    if (items.length === 0) {
+        showToast('Please add at least one item ⚠️', 'warn');
+        return;
+    }
+
+    // Show loading
+    const overlay = document.getElementById('loadingOverlay');
+    overlay.classList.add('show');
+
+    try {
+        const invoice = document.getElementById('invoice');
+
+        // Force white background for PDF
+        const originalBg = invoice.style.background;
+        invoice.style.background = '#ffffff';
+
+        const canvas = await html2canvas(invoice, {
+            scale:           2,
+            useCORS:         true,
+            backgroundColor: '#ffffff',
+            logging:         false,
+        });
+
+        invoice.style.background = originalBg;
+
+        const imgData  = canvas.toDataURL('image/png');
+        const { jsPDF } = window.jspdf;
+        const pdf      = new jsPDF('p', 'mm', 'a4');
+
+        const pdfWidth  = pdf.internal.pageSize.getWidth();
+        const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+
+        pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+
+        const invoiceNum =
+            document.getElementById('invoiceNumber').value
+            || 'invoice';
+        pdf.save(`${invoiceNum}.pdf`);
+
+        showToast('PDF downloaded successfully! ✅');
+
+    } catch (error) {
+        console.error('PDF Error:', error);
+        showToast('Error generating PDF. Try Print instead.', 'error');
+    } finally {
+        overlay.classList.remove('show');
+    }
+});
+
+// ===== PRINT =====
+printBtn.addEventListener('click', () => {
+    window.print();
+});
+
 // ===== RESET =====
 resetBtn.addEventListener('click', () => {
     if (!confirm('Reset everything? This cannot be undone.')) return;
 
-    items = [];
+    items  = [];
     nextId = 1;
 
-    // Clear all inputs
     document.querySelectorAll('input, textarea').forEach(el => {
-        if (el.type === 'date') return;
-        if (el.id === 'taxRate') { el.value = '18'; return; }
-        if (el.id === 'discount') { el.value = '0'; return; }
+        if (el.type === 'date')       return;
+        if (el.id === 'taxRate')      { el.value = '18'; return; }
+        if (el.id === 'discount')     { el.value = '0';  return; }
         el.value = '';
     });
 
-    // Reset preview fields
-    document.getElementById('prev-fromName').textContent = 'Your Name';
+    document.getElementById('currency').selectedIndex = 0;
+
+    // Reset preview text
+    document.getElementById('prev-fromName').textContent  = 'Your Name';
     document.getElementById('prev-fromName2').textContent = '';
-    document.getElementById('prev-toName').textContent = 'Client Name';
+    document.getElementById('prev-toName').textContent    = 'Client Name';
+    document.getElementById('prev-toEmail').textContent   = '';
+    document.getElementById('prev-toAddress').textContent = '';
+    document.getElementById('prev-notes').textContent     =
+        'Thank you for your business!';
+    document.getElementById('prev-paymentTerms').textContent = '-';
 
     generateInvoiceNumber();
     updateAll();
     showToast('Reset complete ✅');
 });
 
-// ===== DOWNLOAD BUTTON (DAY 3) =====
-document.getElementById('downloadBtn')
-    .addEventListener('click', () => {
-        showToast('PDF download coming Day 3! 🚀');
-    });
-
-// ===== ADD ITEM BUTTON =====
+// ===== ADD ITEM =====
 addItemBtn.addEventListener('click', addItem);
 
 // ===== TOAST =====
-function showToast(message) {
-    let toast = document.getElementById('toast');
-    if (!toast) {
-        toast = document.createElement('div');
-        toast.id = 'toast';
-        toast.className = 'toast';
-        document.body.appendChild(toast);
-    }
-    toast.textContent = message;
+function showToast(message, type = 'success') {
+    const toast   = document.getElementById('toast');
+    const toastMsg = document.getElementById('toastMsg');
+
+    toastMsg.textContent = message;
+
+    toast.style.background =
+        type === 'error' ? '#e74c3c' :
+        type === 'warn'  ? '#f39c12' :
+        '#2ecc71';
+
     toast.classList.add('show');
     setTimeout(() => toast.classList.remove('show'), 3000);
 }
@@ -419,6 +417,4 @@ function init() {
 }
 
 init();
-
-console.log('InvoiceFlow Day 2 ✅');
-console.log('Day 3: PDF download coming tomorrow');
+console.log('InvoiceFlow v1.0 — Complete ✅');
