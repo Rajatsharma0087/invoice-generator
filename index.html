@@ -3,14 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="InvoiceFlow - Free Invoice Generator for Freelancers">
+    <meta name="description" 
+          content="InvoiceFlow - Free Invoice Generator for Freelancers">
     <title>InvoiceFlow - Invoice Generator</title>
 
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" 
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" 
+          rel="stylesheet">
+
+    <!-- jsPDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+    <!-- html2canvas -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
     <link rel="stylesheet" href="style.css">
 </head>
@@ -21,22 +30,20 @@
         <i class="fas fa-moon"></i>
     </button>
 
-    <!-- App Layout -->
+    <!-- App -->
     <div class="app">
 
-        <!-- LEFT PANEL: Form -->
+        <!-- LEFT: Form Panel -->
         <div class="form-panel">
 
-            <!-- Logo -->
+            <!-- Header -->
             <div class="form-header">
                 <div class="logo">
                     <i class="fas fa-file-invoice-dollar"></i>
                     <span>Invoice<strong>Flow</strong></span>
                 </div>
                 <p class="tagline">
-                    Fill in the details → 
-                    See live preview → 
-                    Download PDF
+                    Fill details → Preview live → Download PDF
                 </p>
             </div>
 
@@ -48,46 +55,29 @@
                 </div>
                 <div class="form-grid">
                     <div class="form-group span-2">
-                        <label for="fromName">
-                            Your Name / Business Name
-                        </label>
-                        <input
-                            type="text"
-                            id="fromName"
-                            placeholder="Rajat Sharma | Web Developer"
-                        >
+                        <label>Your Name / Business</label>
+                        <input type="text" id="fromName"
+                            placeholder="Rajat Sharma | Web Developer">
                     </div>
                     <div class="form-group span-2">
-                        <label for="fromEmail">Email Address</label>
-                        <input
-                            type="email"
-                            id="fromEmail"
-                            placeholder="rajat@example.com"
-                        >
+                        <label>Email</label>
+                        <input type="email" id="fromEmail"
+                            placeholder="rajat@example.com">
                     </div>
                     <div class="form-group span-2">
-                        <label for="fromAddress">Address</label>
-                        <input
-                            type="text"
-                            id="fromAddress"
-                            placeholder="City, State, India"
-                        >
+                        <label>Address</label>
+                        <input type="text" id="fromAddress"
+                            placeholder="City, State, India">
                     </div>
                     <div class="form-group">
-                        <label for="fromPhone">Phone</label>
-                        <input
-                            type="text"
-                            id="fromPhone"
-                            placeholder="+91 XXXXX XXXXX"
-                        >
+                        <label>Phone</label>
+                        <input type="text" id="fromPhone"
+                            placeholder="+91 XXXXX XXXXX">
                     </div>
                     <div class="form-group">
-                        <label for="fromWebsite">Website</label>
-                        <input
-                            type="text"
-                            id="fromWebsite"
-                            placeholder="yoursite.com"
-                        >
+                        <label>Website</label>
+                        <input type="text" id="fromWebsite"
+                            placeholder="yoursite.com">
                     </div>
                 </div>
             </div>
@@ -100,30 +90,19 @@
                 </div>
                 <div class="form-grid">
                     <div class="form-group span-2">
-                        <label for="toName">
-                            Client Name / Company
-                        </label>
-                        <input
-                            type="text"
-                            id="toName"
-                            placeholder="Client or Company Name"
-                        >
+                        <label>Client Name / Company</label>
+                        <input type="text" id="toName"
+                            placeholder="Client or Company Name">
                     </div>
                     <div class="form-group span-2">
-                        <label for="toEmail">Client Email</label>
-                        <input
-                            type="email"
-                            id="toEmail"
-                            placeholder="client@company.com"
-                        >
+                        <label>Client Email</label>
+                        <input type="email" id="toEmail"
+                            placeholder="client@company.com">
                     </div>
                     <div class="form-group span-2">
-                        <label for="toAddress">Client Address</label>
-                        <input
-                            type="text"
-                            id="toAddress"
-                            placeholder="Client Address"
-                        >
+                        <label>Client Address</label>
+                        <input type="text" id="toAddress"
+                            placeholder="Client Address">
                     </div>
                 </div>
             </div>
@@ -136,17 +115,12 @@
                 </div>
                 <div class="form-grid">
                     <div class="form-group">
-                        <label for="invoiceNumber">
-                            Invoice Number
-                        </label>
-                        <input
-                            type="text"
-                            id="invoiceNumber"
-                            placeholder="INV-001"
-                        >
+                        <label>Invoice Number</label>
+                        <input type="text" id="invoiceNumber"
+                            placeholder="INV-001">
                     </div>
                     <div class="form-group">
-                        <label for="currency">Currency</label>
+                        <label>Currency</label>
                         <select id="currency">
                             <option value="$">USD ($)</option>
                             <option value="₹">INR (₹)</option>
@@ -155,12 +129,47 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="invoiceDate">Invoice Date</label>
+                        <label>Invoice Date</label>
                         <input type="date" id="invoiceDate">
                     </div>
                     <div class="form-group">
-                        <label for="dueDate">Due Date</label>
+                        <label>Due Date</label>
                         <input type="date" id="dueDate">
+                    </div>
+                </div>
+            </div>
+
+            <!-- LINE ITEMS -->
+            <div class="form-section">
+                <div class="section-title">
+                    <i class="fas fa-list-ul"></i>
+                    <h3>Services / Items</h3>
+                </div>
+                <div id="itemsContainer"></div>
+                <button class="btn-add-item" id="addItemBtn">
+                    <i class="fas fa-plus-circle"></i>
+                    Add New Item
+                </button>
+            </div>
+
+            <!-- TAX & DISCOUNT -->
+            <div class="form-section">
+                <div class="section-title">
+                    <i class="fas fa-percent"></i>
+                    <h3>Tax & Discount</h3>
+                </div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Tax Rate (%)</label>
+                        <input type="number" id="taxRate"
+                            placeholder="18" value="18"
+                            min="0" max="100">
+                    </div>
+                    <div class="form-group">
+                        <label>Discount (%)</label>
+                        <input type="number" id="discount"
+                            placeholder="0" value="0"
+                            min="0" max="100">
                     </div>
                 </div>
             </div>
@@ -173,36 +182,37 @@
                 </div>
                 <div class="form-grid">
                     <div class="form-group span-2">
-                        <label for="paymentTerms">
-                            Payment Method
-                        </label>
-                        <input
-                            type="text"
-                            id="paymentTerms"
-                            placeholder="Bank Transfer / UPI / PayPal"
-                        >
+                        <label>Payment Method</label>
+                        <input type="text" id="paymentTerms"
+                            placeholder="Bank Transfer / UPI / PayPal">
                     </div>
                     <div class="form-group span-2">
-                        <label for="notes">Notes</label>
-                        <textarea
-                            id="notes"
-                            rows="3"
-                            placeholder="Thank you for your business! Payment due within 30 days."
-                        ></textarea>
+                        <label>Notes</label>
+                        <textarea id="notes" rows="3"
+                            placeholder="Thank you for your business! Payment due within 30 days."></textarea>
                     </div>
                 </div>
             </div>
 
-<!-- Coming Tomorrow Badge -->
-<div class="coming-soon">
-    <i class="fas fa-clock"></i>
-    <div>
-        <strong>Line Items + Calculations</strong>
-        <p>Coming in Day 2 of the build</p>
-    </div>
-</div>
+            <!-- ACTIONS -->
+            <div class="form-actions">
+                <button class="btn-reset" id="resetBtn">
+                    <i class="fas fa-redo"></i>
+                    Reset
+                </button>
+                <button class="btn-print" id="printBtn">
+                    <i class="fas fa-print"></i>
+                    Print
+                </button>
+                <button class="btn-download" id="downloadBtn">
+                    <i class="fas fa-download"></i>
+                    Download PDF
+                </button>
+            </div>
 
-        <!-- RIGHT PANEL: Invoice Preview -->
+        </div>
+
+        <!-- RIGHT: Preview Panel -->
         <div class="preview-panel">
 
             <div class="preview-topbar">
@@ -210,48 +220,58 @@
                     <i class="fas fa-eye"></i>
                     Live Preview
                 </h2>
-                <span class="preview-badge">Updates as you type</span>
+                <span class="preview-badge">
+                    Updates as you type
+                </span>
             </div>
 
             <!-- Invoice Document -->
             <div class="invoice-wrapper">
                 <div class="invoice" id="invoice">
 
-                    <!-- Invoice Header -->
+                    <!-- Header -->
                     <div class="invoice-header">
                         <div class="sender-info">
-                            <h2 id="prev-fromName" class="sender-name">
+                            <h2 id="prev-fromName" 
+                                class="sender-name">
                                 Your Name
                             </h2>
-                            <p id="prev-fromEmail" class="sender-detail"></p>
-                            <p id="prev-fromAddress" class="sender-detail"></p>
-                            <p id="prev-fromPhone" class="sender-detail"></p>
-                            <p id="prev-fromWebsite" class="sender-detail"></p>
+                            <p id="prev-fromEmail" 
+                               class="sender-detail"></p>
+                            <p id="prev-fromAddress" 
+                               class="sender-detail"></p>
+                            <p id="prev-fromPhone" 
+                               class="sender-detail"></p>
+                            <p id="prev-fromWebsite" 
+                               class="sender-detail"></p>
                         </div>
                         <div class="invoice-title-block">
                             <h1 class="invoice-word">INVOICE</h1>
                             <div class="invoice-meta">
                                 <div class="meta-item">
-                                    <span class="meta-label">Invoice #</span>
-                                    <span 
-                                        id="prev-invoiceNumber" 
-                                        class="meta-value">
+                                    <span class="meta-label">
+                                        Invoice #
+                                    </span>
+                                    <span class="meta-value" 
+                                          id="prev-invoiceNumber">
                                         INV-001
                                     </span>
                                 </div>
                                 <div class="meta-item">
-                                    <span class="meta-label">Date</span>
-                                    <span 
-                                        id="prev-invoiceDate" 
-                                        class="meta-value">
+                                    <span class="meta-label">
+                                        Date
+                                    </span>
+                                    <span class="meta-value" 
+                                          id="prev-invoiceDate">
                                         -
                                     </span>
                                 </div>
                                 <div class="meta-item">
-                                    <span class="meta-label">Due</span>
-                                    <span 
-                                        id="prev-dueDate" 
-                                        class="meta-value">
+                                    <span class="meta-label">
+                                        Due
+                                    </span>
+                                    <span class="meta-value" 
+                                          id="prev-dueDate">
                                         -
                                     </span>
                                 </div>
@@ -259,123 +279,147 @@
                         </div>
                     </div>
 
-                    <!-- Gradient Bar -->
+                    <!-- Bar -->
                     <div class="invoice-bar"></div>
 
-                    <!-- Bill To Section -->
+                    <!-- Parties -->
                     <div class="invoice-parties">
                         <div class="party-block">
                             <p class="party-label">FROM</p>
-                            <p 
-                                id="prev-fromName2" 
-                                class="party-name">
-                                Your Name
+                            <p id="prev-fromName2" 
+                               class="party-name">
+                               Your Name
                             </p>
-                            <p 
-                                id="prev-fromAddress2" 
-                                class="party-detail">
-                            </p>
+                            <p id="prev-fromAddress2" 
+                               class="party-detail"></p>
                         </div>
                         <div class="party-block">
                             <p class="party-label">BILL TO</p>
-                            <p 
-                                id="prev-toName" 
-                                class="party-name">
-                                Client Name
+                            <p id="prev-toName" 
+                               class="party-name">
+                               Client Name
                             </p>
-                            <p 
-                                id="prev-toEmail" 
-                                class="party-detail">
-                            </p>
-                            <p 
-                                id="prev-toAddress" 
-                                class="party-detail">
-                            </p>
+                            <p id="prev-toEmail" 
+                               class="party-detail"></p>
+                            <p id="prev-toAddress" 
+                               class="party-detail"></p>
                         </div>
                     </div>
 
-                    <!-- Items Table Placeholder -->
-                    <div class="table-placeholder">
-                        <div class="placeholder-header">
-                            <span>Description</span>
-                            <span>Qty</span>
-                            <span>Rate</span>
-                            <span>Amount</span>
-                        </div>
-                        <div class="placeholder-rows">
-                            <div class="placeholder-row">
-                                <div class="placeholder-bar wide"></div>
-                                <div class="placeholder-bar narrow"></div>
-                                <div class="placeholder-bar narrow"></div>
-                                <div class="placeholder-bar narrow"></div>
-                            </div>
-                            <div class="placeholder-row">
-                                <div class="placeholder-bar wide"></div>
-                                <div class="placeholder-bar narrow"></div>
-                                <div class="placeholder-bar narrow"></div>
-                                <div class="placeholder-bar narrow"></div>
-                            </div>
-                            <div class="placeholder-row">
-                                <div class="placeholder-bar wide"></div>
-                                <div class="placeholder-bar narrow"></div>
-                                <div class="placeholder-bar narrow"></div>
-                                <div class="placeholder-bar narrow"></div>
-                            </div>
-                        </div>
-                        <p class="placeholder-text">
-                            <i class="fas fa-info-circle"></i>
-                            Line items coming Day 2
-                        </p>
+                    <!-- Items Table -->
+                    <div class="invoice-table-wrapper">
+                        <table class="invoice-table">
+                            <thead>
+                                <tr>
+                                    <th class="th-desc">
+                                        Description
+                                    </th>
+                                    <th class="th-num">Qty</th>
+                                    <th class="th-num">Rate</th>
+                                    <th class="th-num">Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody id="prev-itemsBody">
+                                <tr class="empty-items-row">
+                                    <td colspan="4">
+                                        Add items on the left
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
 
-                    <!-- Totals Placeholder -->
-                    <div class="totals-placeholder">
-                        <div class="totals-row">
-                            <span>Subtotal</span>
-                            <span id="prev-currency">$</span>
-                            <span>0.00</span>
-                        </div>
-                        <div class="totals-row">
-                            <span>Tax</span>
-                            <span>+</span>
-                            <span>0.00</span>
-                        </div>
-                        <div class="totals-row total-final">
-                            <span>Total</span>
-                            <span id="prev-currency2">$</span>
-                            <span>0.00</span>
+                    <!-- Totals -->
+                    <div class="invoice-totals">
+                        <div class="totals-box">
+                            <div class="total-line">
+                                <span>Subtotal</span>
+                                <span id="prev-subtotal">
+                                    $0.00
+                                </span>
+                            </div>
+                            <div class="total-line" 
+                                 id="discountLine"
+                                 style="display:none">
+                                <span>
+                                    Discount
+                                    (<span id="prev-discountPct">
+                                        0
+                                    </span>%)
+                                </span>
+                                <span id="prev-discountAmt">
+                                    -$0.00
+                                </span>
+                            </div>
+                            <div class="total-line">
+                                <span>
+                                    Tax
+                                    (<span id="prev-taxPct">
+                                        18
+                                    </span>%)
+                                </span>
+                                <span id="prev-taxAmt">
+                                    $0.00
+                                </span>
+                            </div>
+                            <div class="total-line grand">
+                                <span>Total</span>
+                                <span id="prev-grandTotal">
+                                    $0.00
+                                </span>
+                            </div>
                         </div>
                     </div>
 
-                    <!-- Payment + Notes -->
+                    <!-- Bottom -->
                     <div class="invoice-bottom">
                         <div class="invoice-payment">
-                            <p class="bottom-label">PAYMENT METHOD</p>
-                            <p id="prev-paymentTerms" class="bottom-value">
-                                -
+                            <p class="bottom-label">
+                                PAYMENT METHOD
                             </p>
+                            <p id="prev-paymentTerms" 
+                               class="bottom-value">-</p>
                         </div>
-                        <div class="invoice-notes">
+                        <div class="invoice-notes-block">
                             <p class="bottom-label">NOTES</p>
-                            <p id="prev-notes" class="bottom-value">
-                                Thank you for your business!
+                            <p id="prev-notes" 
+                               class="bottom-value">
+                               Thank you for your business!
                             </p>
                         </div>
                     </div>
 
-                    <!-- Footer Branding -->
+                    <!-- Branding -->
                     <div class="invoice-branding">
                         <p>
-                            Generated by 
-                            <strong>InvoiceFlow</strong> 
-                            by Rajat Sharma
+                            Generated by
+                            <strong>InvoiceFlow</strong>
+                            by
+                            <a href="https://twitter.com/Rajatsharma_87"
+                               target="_blank">
+                                Rajat Sharma
+                            </a>
                         </p>
                     </div>
 
                 </div>
             </div>
-
         </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-box">
+            <div class="spinner"></div>
+            <p>Generating your PDF...</p>
+            <span>This may take a few seconds</span>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast" id="toast">
+        <i class="fas fa-check-circle"></i>
+        <span id="toastMsg">Done!</span>
     </div>
 
     <script src="script.js"></script>
