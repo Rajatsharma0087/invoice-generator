@@ -115,5 +115,5 @@ const grandTotal  = subtotal - discount + tax;
 <div align="center">
 Made with ❤️ by Rajat Sharma
 <br>
-Day 22 of #100DaysOfCode
+Day 21 of #100DaysOfCode
 </div>
