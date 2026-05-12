@@ -2,776 +2,238 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" 
-          content="width=device-width, initial-scale=1.0">
-    <meta name="description" 
-          content="InvoiceFlow — Free professional invoice 
-                   generator for freelancers. No login. 
-                   No subscription. Download as PDF.">
-    <meta name="keywords" 
-          content="invoice generator, free invoice, 
-                   freelance invoice, PDF invoice">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="InvoiceFlow — Free professional invoice generator for freelancers. No login. No subscription. Download as PDF.">
+    <meta name="keywords" content="invoice generator, free invoice, freelance invoice, PDF invoice">
     <meta name="author" content="Rajat Sharma">
+    <meta name="theme-color" content="#667eea">
 
-    <!-- Open Graph (for sharing on Twitter/WhatsApp) -->
-    <meta property="og:title" 
-          content="InvoiceFlow — Free Invoice Generator">
-    <meta property="og:description" 
-          content="Create professional invoices in seconds. 
-                   Free forever.">
+    <!-- Open Graph -->
+    <meta property="og:title" content="InvoiceFlow — Free Invoice Generator">
+    <meta property="og:description" content="Create professional invoices in seconds. Free forever. No sign-up required.">
     <meta property="og:type" content="website">
+    <meta property="og:image" content="https://your-domain.com/og-image.jpg"> <!-- Add your OG image -->
 
     <title>InvoiceFlow — Free Invoice Generator</title>
 
+    <!-- Fonts (Optimized: Preload critical, subset) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
     <!-- Font Awesome -->
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-          crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous">
 
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700&display=swap"
-          rel="stylesheet">
-
-    <!-- jsPDF -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"
-            defer></script>
-
-    <!-- html2canvas -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"
-            defer></script>
+    <!-- Libraries (Deferred for perf) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" defer></script>
 
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <!-- ===== THEME TOGGLE ===== -->
-    <button class="theme-toggle"
-            id="themeToggle"
-            aria-label="Toggle dark/light mode"
-            title="Toggle Theme (Ctrl+Shift+D)">
+    <!-- Theme Toggle -->
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark/light mode" title="Toggle Theme">
         <i class="fas fa-moon" aria-hidden="true"></i>
     </button>
 
-    <!-- ===== MAIN APP ===== -->
+    <!-- Main App -->
     <div class="app" role="main">
-
-        <!-- ========== LEFT: FORM PANEL ========== -->
-        <aside class="form-panel" aria-label="Invoice Form">
-
-            <!-- Logo + Header -->
-            <div class="form-header">
+        <!-- Form Panel -->
+        <aside class="form-panel" aria-label="Invoice form controls">
+            <!-- Header -->
+            <header class="form-header">
                 <div class="logo">
-                    <i class="fas fa-file-invoice-dollar"
-                       aria-hidden="true"></i>
+                    <i class="fas fa-file-invoice-dollar" aria-hidden="true"></i>
                     <span>Invoice<strong>Flow</strong></span>
                 </div>
-                <p class="tagline">
-                    Fill details
-                    <i class="fas fa-arrow-right"></i>
-                    Preview live
-                    <i class="fas fa-arrow-right"></i>
-                    Download PDF
-                </p>
+                <p class="tagline">Fill details → Preview live → Download PDF</p>
+            </header>
 
-                <!-- Keyboard Shortcut Hints -->
-                <div class="shortcut-hints">
-                    <span>
-                        <kbd>Ctrl</kbd>+<kbd>P</kbd> Print
-                    </span>
-                    <span>
-                        <kbd>Ctrl</kbd>+<kbd>S</kbd> Save
-                    </span>
-                    <span>
-                        <kbd>Ctrl</kbd>+<kbd>D</kbd> PDF
-                    </span>
-                </div>
-            </div>
-
-            <!-- Progress Steps -->
-            <div class="progress-steps">
-                <div class="step active" data-step="1">
-                    <div class="step-icon">
-                        <i class="fas fa-user"></i>
-                    </div>
-                    <span>Your Info</span>
-                </div>
-                <div class="step-line"></div>
-                <div class="step" data-step="2">
-                    <div class="step-icon">
-                        <i class="fas fa-building"></i>
-                    </div>
-                    <span>Client</span>
-                </div>
-                <div class="step-line"></div>
-                <div class="step" data-step="3">
-                    <div class="step-icon">
-                        <i class="fas fa-list"></i>
-                    </div>
-                    <span>Items</span>
-                </div>
-                <div class="step-line"></div>
-                <div class="step" data-step="4">
-                    <div class="step-icon">
-                        <i class="fas fa-download"></i>
-                    </div>
-                    <span>Export</span>
-                </div>
-            </div>
-
-            <!-- ===== YOUR DETAILS ===== -->
-            <section class="form-section" 
-                     data-section="1"
-                     aria-labelledby="section-your-details">
+            <!-- Your Details -->
+            <section class="form-section" aria-labelledby="section-your-details">
                 <div class="section-title">
-                    <div class="section-icon">
-                        <i class="fas fa-user-circle"
-                           aria-hidden="true"></i>
-                    </div>
-                    <h3 id="section-your-details">
-                        Your Details
-                    </h3>
-                    <button class="section-save-btn"
-                            id="saveFromDetails"
-                            title="Save your details for next time"
-                            aria-label="Save your details">
-                        <i class="fas fa-bookmark"></i>
-                    </button>
+                    <i class="fas fa-user-circle" aria-hidden="true"></i>
+                    <h3 id="section-your-details">Your Details</h3>
                 </div>
-
                 <div class="form-grid">
                     <div class="form-group span-2">
-                        <label for="fromName">
-                            Your Name / Business
-                            <span class="required">*</span>
-                        </label>
-                        <div class="input-wrapper">
-                            <i class="fas fa-user input-icon"
-                               aria-hidden="true"></i>
-                            <input
-                                type="text"
-                                id="fromName"
-                                name="fromName"
-                                placeholder="Rajat Sharma | Web Developer"
-                                autocomplete="name"
-                                required
-                                aria-required="true">
-                        </div>
+                        <label for="fromName">Your Name / Business</label>
+                        <input type="text" id="fromName" placeholder="Rajat Sharma | Web Developer" autocomplete="name" required>
                     </div>
-
                     <div class="form-group span-2">
-                        <label for="fromEmail">
-                            Email Address
-                        </label>
-                        <div class="input-wrapper">
-                            <i class="fas fa-envelope input-icon"
-                               aria-hidden="true"></i>
-                            <input
-                                type="email"
-                                id="fromEmail"
-                                name="fromEmail"
-                                placeholder="rajat@example.com"
-                                autocomplete="email">
-                        </div>
+                        <label for="fromEmail">Email Address</label>
+                        <input type="email" id="fromEmail" placeholder="rajat@example.com" autocomplete="email">
                     </div>
-
                     <div class="form-group span-2">
                         <label for="fromAddress">Address</label>
-                        <div class="input-wrapper">
-                            <i class="fas fa-map-marker-alt input-icon"
-                               aria-hidden="true"></i>
-                            <input
-                                type="text"
-                                id="fromAddress"
-                                name="fromAddress"
-                                placeholder="City, State, India"
-                                autocomplete="street-address">
-                        </div>
+                        <input type="text" id="fromAddress" placeholder="City, State, India" autocomplete="street-address">
                     </div>
-
                     <div class="form-group">
                         <label for="fromPhone">Phone</label>
-                        <div class="input-wrapper">
-                            <i class="fas fa-phone input-icon"
-                               aria-hidden="true"></i>
-                            <input
-                                type="tel"
-                                id="fromPhone"
-                                name="fromPhone"
-                                placeholder="+91 XXXXX XXXXX"
-                                autocomplete="tel">
-                        </div>
+                        <input type="tel" id="fromPhone" placeholder="+91 XXXXX XXXXX" autocomplete="tel">
                     </div>
-
                     <div class="form-group">
                         <label for="fromWebsite">Website</label>
-                        <div class="input-wrapper">
-                            <i class="fas fa-globe input-icon"
-                               aria-hidden="true"></i>
-                            <input
-                                type="url"
-                                id="fromWebsite"
-                                name="fromWebsite"
-                                placeholder="yoursite.com">
-                        </div>
+                        <input type="url" id="fromWebsite" placeholder="yoursite.com">
                     </div>
                 </div>
             </section>
 
-            <!-- ===== CLIENT DETAILS ===== -->
-            <section class="form-section"
-                     data-section="2"
-                     aria-labelledby="section-client">
+            <!-- Client Details -->
+            <section class="form-section" aria-labelledby="section-client">
                 <div class="section-title">
-                    <div class="section-icon">
-                        <i class="fas fa-building"
-                           aria-hidden="true"></i>
-                    </div>
-                    <h3 id="section-client">
-                        Client Details
-                    </h3>
+                    <i class="fas fa-building" aria-hidden="true"></i>
+                    <h3 id="section-client">Client Details</h3>
                 </div>
-
                 <div class="form-grid">
                     <div class="form-group span-2">
-                        <label for="toName">
-                            Client Name / Company
-                            <span class="required">*</span>
-                        </label>
-                        <div class="input-wrapper">
-                            <i class="fas fa-user-tie input-icon"
-                               aria-hidden="true"></i>
-                            <input
-                                type="text"
-                                id="toName"
-                                name="toName"
-                                placeholder="Client or Company Name"
-                                required
-                                aria-required="true">
-                        </div>
+                        <label for="toName">Client Name / Company <span aria-label="required" class="visually-hidden">required</span></label>
+                        <input type="text" id="toName" placeholder="Client or Company Name" required>
                     </div>
-
                     <div class="form-group span-2">
-                        <label for="toEmail">
-                            Client Email
-                        </label>
-                        <div class="input-wrapper">
-                            <i class="fas fa-envelope input-icon"
-                               aria-hidden="true"></i>
-                            <input
-                                type="email"
-                                id="toEmail"
-                                name="toEmail"
-                                placeholder="client@company.com">
-                        </div>
+                        <label for="toEmail">Client Email</label>
+                        <input type="email" id="toEmail" placeholder="client@company.com">
                     </div>
-
                     <div class="form-group span-2">
-                        <label for="toAddress">
-                            Client Address
-                        </label>
-                        <div class="input-wrapper">
-                            <i class="fas fa-map-marker-alt input-icon"
-                               aria-hidden="true"></i>
-                            <input
-                                type="text"
-                                id="toAddress"
-                                name="toAddress"
-                                placeholder="Client Address">
-                        </div>
+                        <label for="toAddress">Client Address</label>
+                        <input type="text" id="toAddress" placeholder="Client Address">
                     </div>
                 </div>
             </section>
 
-            <!-- ===== INVOICE DETAILS ===== -->
-            <section class="form-section"
-                     aria-labelledby="section-invoice-details">
+            <!-- Invoice Details -->
+            <section class="form-section" aria-labelledby="section-invoice-details">
                 <div class="section-title">
-                    <div class="section-icon">
-                        <i class="fas fa-file-alt"
-                           aria-hidden="true"></i>
-                    </div>
-                    <h3 id="section-invoice-details">
-                        Invoice Details
-                    </h3>
+                    <i class="fas fa-file-alt" aria-hidden="true"></i>
+                    <h3 id="section-invoice-details">Invoice Details</h3>
                 </div>
-
                 <div class="form-grid">
                     <div class="form-group">
-                        <label for="invoiceNumber">
-                            Invoice Number
-                        </label>
-                        <div class="input-wrapper">
-                            <i class="fas fa-hashtag input-icon"
-                               aria-hidden="true"></i>
-                            <input
-                                type="text"
-                                id="invoiceNumber"
-                                name="invoiceNumber"
-                                placeholder="INV-001">
-                            <button class="input-action-btn"
-                                    id="copyInvNum"
-                                    title="Copy invoice number"
-                                    aria-label="Copy invoice number">
-                                <i class="fas fa-copy"></i>
-                            </button>
-                        </div>
+                        <label for="invoiceNumber">Invoice Number</label>
+                        <input type="text" id="invoiceNumber" placeholder="INV-001">
                     </div>
-
                     <div class="form-group">
                         <label for="currency">Currency</label>
-                        <div class="input-wrapper">
-                            <i class="fas fa-coins input-icon"
-                               aria-hidden="true"></i>
-                            <select id="currency"
-                                    name="currency"
-                                    aria-label="Select currency">
-                                <option value="$">🇺🇸 USD ($)</option>
-                                <option value="₹">🇮🇳 INR (₹)</option>
-                                <option value="€">🇪🇺 EUR (€)</option>
-                                <option value="£">🇬🇧 GBP (£)</option>
-                                <option value="¥">🇯🇵 JPY (¥)</option>
-                                <option value="A$">🇦🇺 AUD (A$)</option>
-                            </select>
-                        </div>
+                        <select id="currency" aria-label="Select currency">
+                            <option value="$">🇺🇸 USD ($)</option>
+                            <option value="₹">🇮🇳 INR (₹)</option>
+                            <option value="€">🇪🇺 EUR (€)</option>
+                            <option value="£">🇬🇧 GBP (£)</option>
+                            <option value="¥">🇯🇵 JPY (¥)</option>
+                            <option value="A$">🇦🇺 AUD (A$)</option>
+                        </select>
                     </div>
-
                     <div class="form-group">
-                        <label for="invoiceDate">
-                            Invoice Date
-                        </label>
-                        <div class="input-wrapper">
-                            <i class="fas fa-calendar input-icon"
-                               aria-hidden="true"></i>
-                            <input
-                                type="date"
-                                id="invoiceDate"
-                                name="invoiceDate"
-                                aria-label="Invoice date">
-                        </div>
+                        <label for="invoiceDate">Invoice Date</label>
+                        <input type="date" id="invoiceDate" aria-label="Invoice date">
                     </div>
-
                     <div class="form-group">
                         <label for="dueDate">Due Date</label>
-                        <div class="input-wrapper">
-                            <i class="fas fa-calendar-check input-icon"
-                               aria-hidden="true"></i>
-                            <input
-                                type="date"
-                                id="dueDate"
-                                name="dueDate"
-                                aria-label="Payment due date">
-                        </div>
-                    </div>
-
-                    <!-- Invoice Status -->
-                    <div class="form-group span-2">
-                        <label>Invoice Status</label>
-                        <div class="status-toggle">
-                            <button class="status-btn active"
-                                    data-status="unpaid"
-                                    aria-pressed="true">
-                                <i class="fas fa-clock"></i>
-                                Unpaid
-                            </button>
-                            <button class="status-btn"
-                                    data-status="paid"
-                                    aria-pressed="false">
-                                <i class="fas fa-check-circle"></i>
-                                Paid
-                            </button>
-                            <button class="status-btn"
-                                    data-status="overdue"
-                                    aria-pressed="false">
-                                <i class="fas fa-exclamation-circle"></i>
-                                Overdue
-                            </button>
-                        </div>
+                        <input type="date" id="dueDate" aria-label="Payment due date">
                     </div>
                 </div>
             </section>
 
-            <!-- ===== LINE ITEMS ===== -->
-            <section class="form-section"
-                     data-section="3"
-                     aria-labelledby="section-items">
+            <!-- Line Items -->
+            <section class="form-section" aria-labelledby="section-items">
                 <div class="section-title">
-                    <div class="section-icon">
-                        <i class="fas fa-list-ul"
-                           aria-hidden="true"></i>
-                    </div>
-                    <h3 id="section-items">
-                        Services / Items
-                    </h3>
-                    <span class="item-count"
-                          id="itemCount"
-                          aria-live="polite">
-                        0 items
-                    </span>
+                    <i class="fas fa-list-ul" aria-hidden="true"></i>
+                    <h3 id="section-items">Services / Items</h3>
                 </div>
-
-                <div id="itemsContainer"
-                     role="list"
-                     aria-label="Invoice items">
-                </div>
-
-                <button class="btn-add-item"
-                        id="addItemBtn"
-                        aria-label="Add new invoice item">
-                    <i class="fas fa-plus-circle"
-                       aria-hidden="true"></i>
+                <div id="itemsContainer" role="list" aria-label="Invoice items list"></div>
+                <button class="btn-add-item" id="addItemBtn" aria-label="Add new item">
+                    <i class="fas fa-plus-circle" aria-hidden="true"></i>
                     Add New Item
                 </button>
             </section>
 
-            <!-- ===== TAX & DISCOUNT ===== -->
-            <section class="form-section"
-                     aria-labelledby="section-tax">
+            <!-- Tax & Discount -->
+            <section class="form-section" aria-labelledby="section-tax">
                 <div class="section-title">
-                    <div class="section-icon">
-                        <i class="fas fa-percent"
-                           aria-hidden="true"></i>
-                    </div>
+                    <i class="fas fa-percent" aria-hidden="true"></i>
                     <h3 id="section-tax">Tax & Discount</h3>
                 </div>
-
                 <div class="form-grid">
                     <div class="form-group">
-                        <label for="taxRate">
-                            Tax Rate (%)
-                            <span class="hint"
-                                  title="GST/VAT percentage">
-                                <i class="fas fa-info-circle"></i>
-                            </span>
-                        </label>
-                        <div class="input-wrapper">
-                            <i class="fas fa-percent input-icon"
-                               aria-hidden="true"></i>
-                            <input
-                                type="number"
-                                id="taxRate"
-                                name="taxRate"
-                                value="18"
-                                min="0"
-                                max="100"
-                                step="0.5"
-                                aria-label="Tax rate percentage">
-                        </div>
+                        <label for="taxRate">Tax Rate (%)</label>
+                        <input type="number" id="taxRate" value="18" min="0" max="100" step="0.1">
                     </div>
-
                     <div class="form-group">
-                        <label for="discount">
-                            Discount (%)
-                        </label>
-                        <div class="input-wrapper">
-                            <i class="fas fa-tag input-icon"
-                               aria-hidden="true"></i>
-                            <input
-                                type="number"
-                                id="discount"
-                                name="discount"
-                                value="0"
-                                min="0"
-                                max="100"
-                                step="0.5"
-                                aria-label="Discount percentage">
-                        </div>
+                        <label for="discount">Discount (%)</label>
+                        <input type="number" id="discount" value="0" min="0" max="100" step="0.1">
                     </div>
                 </div>
             </section>
 
-            <!-- ===== BANK DETAILS ===== -->
-            <section class="form-section"
-                     aria-labelledby="section-bank">
+            <!-- Notes & Payment -->
+            <section class="form-section" aria-labelledby="section-notes">
                 <div class="section-title">
-                    <div class="section-icon">
-                        <i class="fas fa-university"
-                           aria-hidden="true"></i>
-                    </div>
-                    <h3 id="section-bank">Bank Details</h3>
-                    <button class="section-toggle-btn"
-                            id="toggleBank"
-                            aria-expanded="false"
-                            aria-controls="bankFields">
-                        <i class="fas fa-chevron-down"></i>
-                    </button>
+                    <i class="fas fa-sticky-note" aria-hidden="true"></i>
+                    <h3 id="section-notes">Notes & Payment</h3>
                 </div>
-
-                <div id="bankFields"
-                     class="collapsible"
-                     aria-hidden="true">
-                    <div class="form-grid">
-                        <div class="form-group span-2">
-                            <label for="bankName">
-                                Bank Name
-                            </label>
-                            <div class="input-wrapper">
-                                <i class="fas fa-university input-icon"></i>
-                                <input
-                                    type="text"
-                                    id="bankName"
-                                    placeholder="State Bank of India">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="accountNumber">
-                                Account Number
-                            </label>
-                            <div class="input-wrapper">
-                                <i class="fas fa-credit-card input-icon"></i>
-                                <input
-                                    type="text"
-                                    id="accountNumber"
-                                    placeholder="XXXX XXXX XXXX">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="ifscCode">
-                                IFSC / Swift Code
-                            </label>
-                            <div class="input-wrapper">
-                                <i class="fas fa-code input-icon"></i>
-                                <input
-                                    type="text"
-                                    id="ifscCode"
-                                    placeholder="SBIN0001234">
-                            </div>
-                        </div>
-                        <div class="form-group span-2">
-                            <label for="upiId">
-                                UPI ID
-                            </label>
-                            <div class="input-wrapper">
-                                <i class="fas fa-mobile-alt input-icon"></i>
-                                <input
-                                    type="text"
-                                    id="upiId"
-                                    placeholder="rajat@upi">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- ===== NOTES & PAYMENT ===== -->
-            <section class="form-section"
-                     aria-labelledby="section-notes">
-                <div class="section-title">
-                    <div class="section-icon">
-                        <i class="fas fa-sticky-note"
-                           aria-hidden="true"></i>
-                    </div>
-                    <h3 id="section-notes">
-                        Notes & Payment
-                    </h3>
-                </div>
-
                 <div class="form-grid">
                     <div class="form-group span-2">
-                        <label for="paymentTerms">
-                            Payment Method
-                        </label>
-                        <div class="input-wrapper">
-                            <i class="fas fa-credit-card input-icon"
-                               aria-hidden="true"></i>
-                            <input
-                                type="text"
-                                id="paymentTerms"
-                                name="paymentTerms"
-                                placeholder="Bank Transfer / UPI / PayPal">
-                        </div>
+                        <label for="paymentTerms">Payment Method</label>
+                        <input type="text" id="paymentTerms" placeholder="Bank Transfer / UPI / PayPal">
                     </div>
-
                     <div class="form-group span-2">
                         <label for="notes">Notes</label>
-                        <textarea
-                            id="notes"
-                            name="notes"
-                            rows="3"
-                            placeholder="Thank you for your business! Payment due within 30 days."
-                            aria-label="Invoice notes"></textarea>
-
-                        <!-- Quick Note Templates -->
-                        <div class="note-templates">
-                            <span class="template-label">
-                                Quick add:
-                            </span>
-                            <button class="note-template-btn"
-                                    data-note="Thank you for your business! Payment due within 30 days.">
-                                Standard
-                            </button>
-                            <button class="note-template-btn"
-                                    data-note="Payment due immediately upon receipt.">
-                                Urgent
-                            </button>
-                            <button class="note-template-btn"
-                                    data-note="50% payment due upfront. Remaining 50% due on delivery.">
-                                50/50
-                            </button>
-                        </div>
+                        <textarea id="notes" rows="3" placeholder="Thank you for your business! Payment due within 30 days."></textarea>
                     </div>
                 </div>
             </section>
 
-            <!-- ===== ACTION BUTTONS ===== -->
-            <div class="form-actions"
-                 role="group"
-                 aria-label="Invoice actions">
-
-                <button class="btn-action btn-reset"
-                        id="resetBtn"
-                        aria-label="Reset all fields"
-                        title="Reset (clears all data)">
-                    <i class="fas fa-redo"
-                       aria-hidden="true"></i>
-                    <span>Reset</span>
+            <!-- Actions -->
+            <div class="form-actions" role="group" aria-label="Invoice actions">
+                <button class="btn-reset" id="resetBtn" aria-label="Reset form">
+                    <i class="fas fa-redo" aria-hidden="true"></i> Reset
                 </button>
-
-                <button class="btn-action btn-save"
-                        id="saveBtn"
-                        aria-label="Save invoice to browser"
-                        title="Save (Ctrl+S)">
-                    <i class="fas fa-save"
-                       aria-hidden="true"></i>
-                    <span>Save</span>
+                <button class="btn-print" id="printBtn" aria-label="Print invoice">
+                    <i class="fas fa-print" aria-hidden="true"></i> Print
                 </button>
-
-                <button class="btn-action btn-print"
-                        id="printBtn"
-                        aria-label="Print invoice"
-                        title="Print (Ctrl+P)">
-                    <i class="fas fa-print"
-                       aria-hidden="true"></i>
-                    <span>Print</span>
-                </button>
-
-                <button class="btn-action btn-download"
-                        id="downloadBtn"
-                        aria-label="Download invoice as PDF"
-                        title="Download PDF (Ctrl+D)">
-                    <i class="fas fa-file-pdf"
-                       aria-hidden="true"></i>
-                    <span>PDF</span>
+                <button class="btn-download" id="downloadBtn" aria-label="Download PDF">
+                    <i class="fas fa-file-pdf" aria-hidden="true"></i> PDF
                 </button>
             </div>
-
         </aside>
 
-        <!-- ========== RIGHT: PREVIEW PANEL ========== -->
+        <!-- Preview Panel -->
         <div class="preview-panel">
-
-            <!-- Preview Topbar -->
             <div class="preview-topbar">
-                <div class="preview-topbar-left">
-                    <h2>
-                        <i class="fas fa-eye"
-                           aria-hidden="true"></i>
-                        Live Preview
-                    </h2>
-                    <span class="preview-badge">
-                        <i class="fas fa-circle pulse"></i>
-                        Updates as you type
-                    </span>
-                </div>
-
-                <!-- Preview Controls -->
-                <div class="preview-controls">
-
-                    <!-- Template Selector -->
-                    <div class="template-selector">
-                        <label for="templateSelect">
-                            Template:
-                        </label>
-                        <select id="templateSelect"
-                                aria-label="Invoice template">
-                            <option value="modern">
-                                Modern
-                            </option>
-                            <option value="minimal">
-                                Minimal
-                            </option>
-                            <option value="bold">
-                                Bold
-                            </option>
-                        </select>
-                    </div>
-
-                    <!-- Zoom Controls -->
-                    <div class="zoom-controls"
-                         role="group"
-                         aria-label="Preview zoom controls">
-                        <button class="zoom-btn"
-                                id="zoomOut"
-                                aria-label="Zoom out">
-                            <i class="fas fa-minus"></i>
-                        </button>
-                        <span class="zoom-level"
-                              id="zoomLevel"
-                              aria-live="polite">
-                            100%
-                        </span>
-                        <button class="zoom-btn"
-                                id="zoomIn"
-                                aria-label="Zoom in">
-                            <i class="fas fa-plus"></i>
-                        </button>
-                    </div>
-                </div>
+                <h2>
+                    <i class="fas fa-eye" aria-hidden="true"></i>
+                    Live Preview
+                </h2>
+                <span class="preview-badge">Live Updates</span>
             </div>
 
-            <!-- Invoice Preview Wrapper -->
-            <div class="invoice-wrapper"
-                 id="invoiceWrapper">
-                <div class="invoice"
-                     id="invoice"
-                     role="document"
-                     aria-label="Invoice preview">
-
-                    <!-- Invoice Header -->
+            <!-- Invoice Preview -->
+            <div class="invoice-wrapper" id="invoiceWrapper">
+                <div class="invoice" id="invoice" role="document" aria-label="Live invoice preview">
+                    <!-- Header -->
                     <div class="invoice-header">
                         <div class="sender-info">
-                            <h2 id="prev-fromName"
-                                class="sender-name">
-                                Your Name
-                            </h2>
-                            <p id="prev-fromEmail"
-                               class="sender-detail"></p>
-                            <p id="prev-fromAddress"
-                               class="sender-detail"></p>
-                            <p id="prev-fromPhone"
-                               class="sender-detail"></p>
-                            <p id="prev-fromWebsite"
-                               class="sender-detail"></p>
+                            <h2 id="prev-fromName" class="sender-name">Your Name</h2>
+                            <p id="prev-fromEmail" class="sender-detail"></p>
+                            <p id="prev-fromAddress" class="sender-detail"></p>
+                            <p id="prev-fromPhone" class="sender-detail"></p>
+                            <p id="prev-fromWebsite" class="sender-detail"></p>
                         </div>
-
                         <div class="invoice-title-block">
                             <h1 class="invoice-word">INVOICE</h1>
                             <div class="invoice-meta">
                                 <div class="meta-item">
-                                    <span class="meta-label">
-                                        Invoice #
-                                    </span>
-                                    <span class="meta-value"
-                                          id="prev-invoiceNumber">
-                                        INV-001
-                                    </span>
+                                    <span class="meta-label">Invoice #</span>
+                                    <span id="prev-invoiceNumber" class="meta-value">INV-001</span>
                                 </div>
                                 <div class="meta-item">
-                                    <span class="meta-label">
-                                        Date
-                                    </span>
-                                    <span class="meta-value"
-                                          id="prev-invoiceDate">
-                                        -
-                                    </span>
+                                    <span class="meta-label">Date</span>
+                                    <span id="prev-invoiceDate" class="meta-value">-</span>
                                 </div>
                                 <div class="meta-item">
-                                    <span class="meta-label">
-                                        Due Date
-                                    </span>
-                                    <span class="meta-value"
-                                          id="prev-dueDate">
-                                        -
-                                    </span>
+                                    <span class="meta-label">Due</span>
+                                    <span id="prev-dueDate" class="meta-value">-</span>
                                 </div>
                             </div>
                         </div>
@@ -780,60 +242,35 @@
                     <!-- Gradient Bar -->
                     <div class="invoice-bar"></div>
 
-                    <!-- Bill To / From -->
+                    <!-- Parties -->
                     <div class="invoice-parties">
                         <div class="party-block">
                             <p class="party-label">FROM</p>
-                            <p id="prev-fromName2"
-                               class="party-name">
-                               Your Name
-                            </p>
-                            <p id="prev-fromAddress2"
-                               class="party-detail"></p>
+                            <p id="prev-fromName2" class="party-name">Your Name</p>
+                            <p id="prev-fromAddress2" class="party-detail"></p>
                         </div>
                         <div class="party-block">
                             <p class="party-label">BILL TO</p>
-                            <p id="prev-toName"
-                               class="party-name">
-                               Client Name
-                            </p>
-                            <p id="prev-toEmail"
-                               class="party-detail"></p>
-                            <p id="prev-toAddress"
-                               class="party-detail"></p>
+                            <p id="prev-toName" class="party-name">Client Name</p>
+                            <p id="prev-toEmail" class="party-detail"></p>
+                            <p id="prev-toAddress" class="party-detail"></p>
                         </div>
                     </div>
 
                     <!-- Items Table -->
                     <div class="invoice-table-wrapper">
-                        <table class="invoice-table"
-                               aria-label="Invoice items">
+                        <table class="invoice-table" aria-label="Invoice line items">
                             <thead>
                                 <tr>
-                                    <th class="th-desc"
-                                        scope="col">
-                                        Description
-                                    </th>
-                                    <th class="th-num"
-                                        scope="col">
-                                        Qty
-                                    </th>
-                                    <th class="th-num"
-                                        scope="col">
-                                        Rate
-                                    </th>
-                                    <th class="th-num"
-                                        scope="col">
-                                        Amount
-                                    </th>
+                                    <th scope="col">Description</th>
+                                    <th class="th-num" scope="col">Qty</th>
+                                    <th class="th-num" scope="col">Rate</th>
+                                    <th class="th-num" scope="col">Amount</th>
                                 </tr>
                             </thead>
                             <tbody id="prev-itemsBody">
                                 <tr class="empty-items-row">
-                                    <td colspan="4">
-                                        <i class="fas fa-arrow-left"></i>
-                                        Add items on the left
-                                    </td>
+                                    <td colspan="4">Add items on the left</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -844,169 +281,56 @@
                         <div class="totals-box">
                             <div class="total-line">
                                 <span>Subtotal</span>
-                                <span id="prev-subtotal">
-                                    $0.00
-                                </span>
+                                <span id="prev-subtotal">$0.00</span>
                             </div>
-                            <div class="total-line"
-                                 id="discountLine"
-                                 style="display:none"
-                                 aria-hidden="true">
-                                <span>
-                                    Discount
-                                    (<span id="prev-discountPct">
-                                        0
-                                    </span>%)
-                                </span>
-                                <span id="prev-discountAmt">
-                                    -$0.00
-                                </span>
+                            <div class="total-line" id="discountLine" style="display: none;" aria-hidden="true">
+                                <span>Discount (<span id="prev-discountPct">0</span>%)</span>
+                                <span id="prev-discountAmt">-$0.00</span>
                             </div>
                             <div class="total-line">
-                                <span>
-                                    Tax
-                                    (<span id="prev-taxPct">
-                                        18
-                                    </span>%)
-                                </span>
-                                <span id="prev-taxAmt">
-                                    $0.00
-                                </span>
+                                <span>Tax (<span id="prev-taxPct">18</span>%)</span>
+                                <span id="prev-taxAmt">$0.00</span>
                             </div>
-                            <div class="total-line grand"
-                                 aria-label="Grand total">
+                            <div class="total-line grand">
                                 <span>Total</span>
-                                <span id="prev-grandTotal">
-                                    $0.00
-                                </span>
+                                <span id="prev-grandTotal">$0.00</span>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Bank Details Preview -->
-                    <div class="invoice-bank"
-                         id="prev-bankSection"
-                         style="display:none">
-                        <p class="bottom-label">
-                            BANK DETAILS
-                        </p>
-                        <div class="bank-grid">
-                            <div class="bank-item">
-                                <span>Bank:</span>
-                                <strong id="prev-bankName">-</strong>
-                            </div>
-                            <div class="bank-item">
-                                <span>Account:</span>
-                                <strong id="prev-accountNumber">
-                                    -
-                                </strong>
-                            </div>
-                            <div class="bank-item">
-                                <span>IFSC:</span>
-                                <strong id="prev-ifscCode">-</strong>
-                            </div>
-                            <div class="bank-item">
-                                <span>UPI:</span>
-                                <strong id="prev-upiId">-</strong>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Payment + Notes -->
+                    <!-- Bottom -->
                     <div class="invoice-bottom">
-                        <div class="invoice-payment">
-                            <p class="bottom-label">
-                                PAYMENT METHOD
-                            </p>
-                            <p id="prev-paymentTerms"
-                               class="bottom-value">-</p>
+                        <div>
+                            <p class="bottom-label">PAYMENT METHOD</p>
+                            <p id="prev-paymentTerms" class="bottom-value">-</p>
                         </div>
-                        <div class="invoice-notes-block">
+                        <div>
                             <p class="bottom-label">NOTES</p>
-                            <p id="prev-notes"
-                               class="bottom-value">
-                               Thank you for your business!
-                            </p>
+                            <p id="prev-notes" class="bottom-value">Thank you for your business!</p>
                         </div>
                     </div>
 
-                    <!-- Signature Line -->
-                    <div class="invoice-signature">
-                        <div class="signature-block">
-                            <div class="signature-line"></div>
-                            <p id="prev-fromName3"
-                               class="signature-name">
-                               Your Name
-                            </p>
-                            <p class="signature-label">
-                                Authorized Signature
-                            </p>
-                        </div>
-                        <div class="signature-block">
-                            <div class="signature-line"></div>
-                            <p class="signature-label">
-                                Client Signature
-                            </p>
-                        </div>
-                    </div>
-
-                    <!-- Invoice Status Stamp -->
-                    <div class="invoice-stamp"
-                         id="invoiceStamp"
-                         aria-hidden="true">
-                        <span id="stampText">UNPAID</span>
-                    </div>
-
-                    <!-- Branding -->
+                    <!-- Branding (Hidden on Print) -->
                     <div class="invoice-branding">
-                        <p>
-                            Generated by
-                            <strong>InvoiceFlow</strong>
-                            by
-                            <a href="https://twitter.com/Rajatsharma_87"
-                               target="_blank"
-                               rel="noopener noreferrer">
-                                Rajat Sharma
-                            </a>
-                        </p>
+                        Generated by <strong>InvoiceFlow</strong>
                     </div>
-
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- ===== LOADING OVERLAY ===== -->
-    <div class="loading-overlay"
-         id="loadingOverlay"
-         role="dialog"
-         aria-modal="true"
-         aria-label="Generating PDF"
-         aria-hidden="true">
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay" role="status" aria-label="Generating PDF" aria-hidden="true">
         <div class="loading-box">
-            <div class="spinner"
-                 aria-hidden="true"></div>
-            <p>Generating your PDF...</p>
-            <span>This may take a few seconds</span>
-
-            <!-- Progress Bar -->
-            <div class="loading-progress">
-                <div class="loading-bar"
-                     id="loadingBar"></div>
-            </div>
+            <div class="spinner" aria-hidden="true"></div>
+            <p>Generating PDF...</p>
+            <p>This may take a few seconds</p>
         </div>
     </div>
 
-    <!-- ===== TOAST NOTIFICATION ===== -->
-    <div class="toast"
-         id="toast"
-         role="alert"
-         aria-live="polite"
-         aria-atomic="true">
-        <i class="fas fa-check-circle"
-           aria-hidden="true"
-           id="toastIcon"></i>
-        <span id="toastMsg">Done!</span>
+    <!-- Toast -->
+    <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true">
+        <span id="toastMsg">Ready!</span>
     </div>
 
     <script src="script.js"></script>
