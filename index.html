@@ -3,218 +3,228 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="InvoiceFlow — Free professional invoice generator for freelancers. No login. No subscription. Download as PDF.">
-    <meta name="keywords" content="invoice generator, free invoice, freelance invoice, PDF invoice">
-    <meta name="author" content="Rajat Sharma">
-    <meta name="theme-color" content="#667eea">
-
-    <!-- Open Graph -->
-    <meta property="og:title" content="InvoiceFlow — Free Invoice Generator">
-    <meta property="og:description" content="Create professional invoices in seconds. Free forever. No sign-up required.">
-    <meta property="og:type" content="website">
-    <meta property="og:image" content="https://your-domain.com/og-image.jpg"> <!-- Add your OG image -->
-
-    <title>InvoiceFlow — Free Invoice Generator</title>
-
-    <!-- Fonts (Optimized: Preload critical, subset) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <meta name="description" content="InvoiceFlow - Free Invoice Generator for Freelancers">
+    <title>InvoiceFlow - Invoice Generator</title>
 
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <!-- Libraries (Deferred for perf) -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" defer></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <!-- Theme Toggle -->
-    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark/light mode" title="Toggle Theme">
-        <i class="fas fa-moon" aria-hidden="true"></i>
+    <button class="theme-toggle" id="themeToggle">
+        <i class="fas fa-moon"></i>
     </button>
 
-    <!-- Main App -->
-    <div class="app" role="main">
-        <!-- Form Panel -->
-        <aside class="form-panel" aria-label="Invoice form controls">
-            <!-- Header -->
-            <header class="form-header">
+    <!-- App Layout -->
+    <div class="app">
+
+        <!-- LEFT PANEL: Form -->
+        <div class="form-panel">
+
+            <!-- Logo -->
+            <div class="form-header">
                 <div class="logo">
-                    <i class="fas fa-file-invoice-dollar" aria-hidden="true"></i>
+                    <i class="fas fa-file-invoice-dollar"></i>
                     <span>Invoice<strong>Flow</strong></span>
                 </div>
-                <p class="tagline">Fill details → Preview live → Download PDF</p>
-            </header>
+                <p class="tagline">
+                    Fill in the details → 
+                    See live preview → 
+                    Download PDF
+                </p>
+            </div>
 
-            <!-- Your Details -->
-            <section class="form-section" aria-labelledby="section-your-details">
+            <!-- YOUR DETAILS -->
+            <div class="form-section">
                 <div class="section-title">
-                    <i class="fas fa-user-circle" aria-hidden="true"></i>
-                    <h3 id="section-your-details">Your Details</h3>
+                    <i class="fas fa-user-circle"></i>
+                    <h3>Your Details</h3>
                 </div>
                 <div class="form-grid">
                     <div class="form-group span-2">
-                        <label for="fromName">Your Name / Business</label>
-                        <input type="text" id="fromName" placeholder="Rajat Sharma | Web Developer" autocomplete="name" required>
+                        <label for="fromName">
+                            Your Name / Business Name
+                        </label>
+                        <input
+                            type="text"
+                            id="fromName"
+                            placeholder="Rajat Sharma | Web Developer"
+                        >
                     </div>
                     <div class="form-group span-2">
                         <label for="fromEmail">Email Address</label>
-                        <input type="email" id="fromEmail" placeholder="rajat@example.com" autocomplete="email">
+                        <input
+                            type="email"
+                            id="fromEmail"
+                            placeholder="rajat@example.com"
+                        >
                     </div>
                     <div class="form-group span-2">
                         <label for="fromAddress">Address</label>
-                        <input type="text" id="fromAddress" placeholder="City, State, India" autocomplete="street-address">
+                        <input
+                            type="text"
+                            id="fromAddress"
+                            placeholder="City, State, India"
+                        >
                     </div>
                     <div class="form-group">
                         <label for="fromPhone">Phone</label>
-                        <input type="tel" id="fromPhone" placeholder="+91 XXXXX XXXXX" autocomplete="tel">
+                        <input
+                            type="text"
+                            id="fromPhone"
+                            placeholder="+91 XXXXX XXXXX"
+                        >
                     </div>
                     <div class="form-group">
                         <label for="fromWebsite">Website</label>
-                        <input type="url" id="fromWebsite" placeholder="yoursite.com">
+                        <input
+                            type="text"
+                            id="fromWebsite"
+                            placeholder="yoursite.com"
+                        >
                     </div>
                 </div>
-            </section>
+            </div>
 
-            <!-- Client Details -->
-            <section class="form-section" aria-labelledby="section-client">
+            <!-- CLIENT DETAILS -->
+            <div class="form-section">
                 <div class="section-title">
-                    <i class="fas fa-building" aria-hidden="true"></i>
-                    <h3 id="section-client">Client Details</h3>
+                    <i class="fas fa-building"></i>
+                    <h3>Client Details</h3>
                 </div>
                 <div class="form-grid">
                     <div class="form-group span-2">
-                        <label for="toName">Client Name / Company <span aria-label="required" class="visually-hidden">required</span></label>
-                        <input type="text" id="toName" placeholder="Client or Company Name" required>
+                        <label for="toName">
+                            Client Name / Company
+                        </label>
+                        <input
+                            type="text"
+                            id="toName"
+                            placeholder="Client or Company Name"
+                        >
                     </div>
                     <div class="form-group span-2">
                         <label for="toEmail">Client Email</label>
-                        <input type="email" id="toEmail" placeholder="client@company.com">
+                        <input
+                            type="email"
+                            id="toEmail"
+                            placeholder="client@company.com"
+                        >
                     </div>
                     <div class="form-group span-2">
                         <label for="toAddress">Client Address</label>
-                        <input type="text" id="toAddress" placeholder="Client Address">
+                        <input
+                            type="text"
+                            id="toAddress"
+                            placeholder="Client Address"
+                        >
                     </div>
                 </div>
-            </section>
+            </div>
 
-            <!-- Invoice Details -->
-            <section class="form-section" aria-labelledby="section-invoice-details">
+            <!-- INVOICE DETAILS -->
+            <div class="form-section">
                 <div class="section-title">
-                    <i class="fas fa-file-alt" aria-hidden="true"></i>
-                    <h3 id="section-invoice-details">Invoice Details</h3>
+                    <i class="fas fa-file-alt"></i>
+                    <h3>Invoice Details</h3>
                 </div>
                 <div class="form-grid">
                     <div class="form-group">
-                        <label for="invoiceNumber">Invoice Number</label>
-                        <input type="text" id="invoiceNumber" placeholder="INV-001">
+                        <label for="invoiceNumber">
+                            Invoice Number
+                        </label>
+                        <input
+                            type="text"
+                            id="invoiceNumber"
+                            placeholder="INV-001"
+                        >
                     </div>
                     <div class="form-group">
                         <label for="currency">Currency</label>
-                        <select id="currency" aria-label="Select currency">
-                            <option value="$">🇺🇸 USD ($)</option>
-                            <option value="₹">🇮🇳 INR (₹)</option>
-                            <option value="€">🇪🇺 EUR (€)</option>
-                            <option value="£">🇬🇧 GBP (£)</option>
-                            <option value="¥">🇯🇵 JPY (¥)</option>
-                            <option value="A$">🇦🇺 AUD (A$)</option>
+                        <select id="currency">
+                            <option value="$">USD ($)</option>
+                            <option value="₹">INR (₹)</option>
+                            <option value="€">EUR (€)</option>
+                            <option value="£">GBP (£)</option>
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="invoiceDate">Invoice Date</label>
-                        <input type="date" id="invoiceDate" aria-label="Invoice date">
+                        <input type="date" id="invoiceDate">
                     </div>
                     <div class="form-group">
                         <label for="dueDate">Due Date</label>
-                        <input type="date" id="dueDate" aria-label="Payment due date">
+                        <input type="date" id="dueDate">
                     </div>
                 </div>
-            </section>
+            </div>
 
-            <!-- Line Items -->
-            <section class="form-section" aria-labelledby="section-items">
+            <!-- NOTES -->
+            <div class="form-section">
                 <div class="section-title">
-                    <i class="fas fa-list-ul" aria-hidden="true"></i>
-                    <h3 id="section-items">Services / Items</h3>
-                </div>
-                <div id="itemsContainer" role="list" aria-label="Invoice items list"></div>
-                <button class="btn-add-item" id="addItemBtn" aria-label="Add new item">
-                    <i class="fas fa-plus-circle" aria-hidden="true"></i>
-                    Add New Item
-                </button>
-            </section>
-
-            <!-- Tax & Discount -->
-            <section class="form-section" aria-labelledby="section-tax">
-                <div class="section-title">
-                    <i class="fas fa-percent" aria-hidden="true"></i>
-                    <h3 id="section-tax">Tax & Discount</h3>
-                </div>
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label for="taxRate">Tax Rate (%)</label>
-                        <input type="number" id="taxRate" value="18" min="0" max="100" step="0.1">
-                    </div>
-                    <div class="form-group">
-                        <label for="discount">Discount (%)</label>
-                        <input type="number" id="discount" value="0" min="0" max="100" step="0.1">
-                    </div>
-                </div>
-            </section>
-
-            <!-- Notes & Payment -->
-            <section class="form-section" aria-labelledby="section-notes">
-                <div class="section-title">
-                    <i class="fas fa-sticky-note" aria-hidden="true"></i>
-                    <h3 id="section-notes">Notes & Payment</h3>
+                    <i class="fas fa-sticky-note"></i>
+                    <h3>Notes & Payment</h3>
                 </div>
                 <div class="form-grid">
                     <div class="form-group span-2">
-                        <label for="paymentTerms">Payment Method</label>
-                        <input type="text" id="paymentTerms" placeholder="Bank Transfer / UPI / PayPal">
+                        <label for="paymentTerms">
+                            Payment Method
+                        </label>
+                        <input
+                            type="text"
+                            id="paymentTerms"
+                            placeholder="Bank Transfer / UPI / PayPal"
+                        >
                     </div>
                     <div class="form-group span-2">
                         <label for="notes">Notes</label>
-                        <textarea id="notes" rows="3" placeholder="Thank you for your business! Payment due within 30 days."></textarea>
+                        <textarea
+                            id="notes"
+                            rows="3"
+                            placeholder="Thank you for your business! Payment due within 30 days."
+                        ></textarea>
                     </div>
                 </div>
-            </section>
-
-            <!-- Actions -->
-            <div class="form-actions" role="group" aria-label="Invoice actions">
-                <button class="btn-reset" id="resetBtn" aria-label="Reset form">
-                    <i class="fas fa-redo" aria-hidden="true"></i> Reset
-                </button>
-                <button class="btn-print" id="printBtn" aria-label="Print invoice">
-                    <i class="fas fa-print" aria-hidden="true"></i> Print
-                </button>
-                <button class="btn-download" id="downloadBtn" aria-label="Download PDF">
-                    <i class="fas fa-file-pdf" aria-hidden="true"></i> PDF
-                </button>
             </div>
-        </aside>
 
-        <!-- Preview Panel -->
+            <!-- Coming Tomorrow Badge -->
+            <div class="coming-soon">
+                <i class="fas fa-clock"></i>
+                <div>
+                    <strong>Line Items + Calculations</strong>
+                    <p>Coming in Day 2 of the build</p>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- RIGHT PANEL: Invoice Preview -->
         <div class="preview-panel">
+
             <div class="preview-topbar">
                 <h2>
-                    <i class="fas fa-eye" aria-hidden="true"></i>
+                    <i class="fas fa-eye"></i>
                     Live Preview
                 </h2>
-                <span class="preview-badge">Live Updates</span>
+                <span class="preview-badge">Updates as you type</span>
             </div>
 
-            <!-- Invoice Preview -->
-            <div class="invoice-wrapper" id="invoiceWrapper">
-                <div class="invoice" id="invoice" role="document" aria-label="Live invoice preview">
-                    <!-- Header -->
+            <!-- Invoice Document -->
+            <div class="invoice-wrapper">
+                <div class="invoice" id="invoice">
+
+                    <!-- Invoice Header -->
                     <div class="invoice-header">
                         <div class="sender-info">
-                            <h2 id="prev-fromName" class="sender-name">Your Name</h2>
+                            <h2 id="prev-fromName" class="sender-name">
+                                Your Name
+                            </h2>
                             <p id="prev-fromEmail" class="sender-detail"></p>
                             <p id="prev-fromAddress" class="sender-detail"></p>
                             <p id="prev-fromPhone" class="sender-detail"></p>
@@ -225,15 +235,27 @@
                             <div class="invoice-meta">
                                 <div class="meta-item">
                                     <span class="meta-label">Invoice #</span>
-                                    <span id="prev-invoiceNumber" class="meta-value">INV-001</span>
+                                    <span 
+                                        id="prev-invoiceNumber" 
+                                        class="meta-value">
+                                        INV-001
+                                    </span>
                                 </div>
                                 <div class="meta-item">
                                     <span class="meta-label">Date</span>
-                                    <span id="prev-invoiceDate" class="meta-value">-</span>
+                                    <span 
+                                        id="prev-invoiceDate" 
+                                        class="meta-value">
+                                        -
+                                    </span>
                                 </div>
                                 <div class="meta-item">
                                     <span class="meta-label">Due</span>
-                                    <span id="prev-dueDate" class="meta-value">-</span>
+                                    <span 
+                                        id="prev-dueDate" 
+                                        class="meta-value">
+                                        -
+                                    </span>
                                 </div>
                             </div>
                         </div>
@@ -242,95 +264,120 @@
                     <!-- Gradient Bar -->
                     <div class="invoice-bar"></div>
 
-                    <!-- Parties -->
+                    <!-- Bill To Section -->
                     <div class="invoice-parties">
                         <div class="party-block">
                             <p class="party-label">FROM</p>
-                            <p id="prev-fromName2" class="party-name">Your Name</p>
-                            <p id="prev-fromAddress2" class="party-detail"></p>
+                            <p 
+                                id="prev-fromName2" 
+                                class="party-name">
+                                Your Name
+                            </p>
+                            <p 
+                                id="prev-fromAddress2" 
+                                class="party-detail">
+                            </p>
                         </div>
                         <div class="party-block">
                             <p class="party-label">BILL TO</p>
-                            <p id="prev-toName" class="party-name">Client Name</p>
-                            <p id="prev-toEmail" class="party-detail"></p>
-                            <p id="prev-toAddress" class="party-detail"></p>
+                            <p 
+                                id="prev-toName" 
+                                class="party-name">
+                                Client Name
+                            </p>
+                            <p 
+                                id="prev-toEmail" 
+                                class="party-detail">
+                            </p>
+                            <p 
+                                id="prev-toAddress" 
+                                class="party-detail">
+                            </p>
                         </div>
                     </div>
 
-                    <!-- Items Table -->
-                    <div class="invoice-table-wrapper">
-                        <table class="invoice-table" aria-label="Invoice line items">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Description</th>
-                                    <th class="th-num" scope="col">Qty</th>
-                                    <th class="th-num" scope="col">Rate</th>
-                                    <th class="th-num" scope="col">Amount</th>
-                                </tr>
-                            </thead>
-                            <tbody id="prev-itemsBody">
-                                <tr class="empty-items-row">
-                                    <td colspan="4">Add items on the left</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    <!-- Items Table Placeholder -->
+                    <div class="table-placeholder">
+                        <div class="placeholder-header">
+                            <span>Description</span>
+                            <span>Qty</span>
+                            <span>Rate</span>
+                            <span>Amount</span>
+                        </div>
+                        <div class="placeholder-rows">
+                            <div class="placeholder-row">
+                                <div class="placeholder-bar wide"></div>
+                                <div class="placeholder-bar narrow"></div>
+                                <div class="placeholder-bar narrow"></div>
+                                <div class="placeholder-bar narrow"></div>
+                            </div>
+                            <div class="placeholder-row">
+                                <div class="placeholder-bar wide"></div>
+                                <div class="placeholder-bar narrow"></div>
+                                <div class="placeholder-bar narrow"></div>
+                                <div class="placeholder-bar narrow"></div>
+                            </div>
+                            <div class="placeholder-row">
+                                <div class="placeholder-bar wide"></div>
+                                <div class="placeholder-bar narrow"></div>
+                                <div class="placeholder-bar narrow"></div>
+                                <div class="placeholder-bar narrow"></div>
+                            </div>
+                        </div>
+                        <p class="placeholder-text">
+                            <i class="fas fa-info-circle"></i>
+                            Line items coming Day 2
+                        </p>
                     </div>
 
-                    <!-- Totals -->
-                    <div class="invoice-totals">
-                        <div class="totals-box">
-                            <div class="total-line">
-                                <span>Subtotal</span>
-                                <span id="prev-subtotal">$0.00</span>
-                            </div>
-                            <div class="total-line" id="discountLine" style="display: none;" aria-hidden="true">
-                                <span>Discount (<span id="prev-discountPct">0</span>%)</span>
-                                <span id="prev-discountAmt">-$0.00</span>
-                            </div>
-                            <div class="total-line">
-                                <span>Tax (<span id="prev-taxPct">18</span>%)</span>
-                                <span id="prev-taxAmt">$0.00</span>
-                            </div>
-                            <div class="total-line grand">
-                                <span>Total</span>
-                                <span id="prev-grandTotal">$0.00</span>
-                            </div>
+                    <!-- Totals Placeholder -->
+                    <div class="totals-placeholder">
+                        <div class="totals-row">
+                            <span>Subtotal</span>
+                            <span id="prev-currency">$</span>
+                            <span>0.00</span>
+                        </div>
+                        <div class="totals-row">
+                            <span>Tax</span>
+                            <span>+</span>
+                            <span>0.00</span>
+                        </div>
+                        <div class="totals-row total-final">
+                            <span>Total</span>
+                            <span id="prev-currency2">$</span>
+                            <span>0.00</span>
                         </div>
                     </div>
 
-                    <!-- Bottom -->
+                    <!-- Payment + Notes -->
                     <div class="invoice-bottom">
-                        <div>
+                        <div class="invoice-payment">
                             <p class="bottom-label">PAYMENT METHOD</p>
-                            <p id="prev-paymentTerms" class="bottom-value">-</p>
+                            <p id="prev-paymentTerms" class="bottom-value">
+                                -
+                            </p>
                         </div>
-                        <div>
+                        <div class="invoice-notes">
                             <p class="bottom-label">NOTES</p>
-                            <p id="prev-notes" class="bottom-value">Thank you for your business!</p>
+                            <p id="prev-notes" class="bottom-value">
+                                Thank you for your business!
+                            </p>
                         </div>
                     </div>
 
-                    <!-- Branding (Hidden on Print) -->
+                    <!-- Footer Branding -->
                     <div class="invoice-branding">
-                        Generated by <strong>InvoiceFlow</strong> by <strong>Rajat Sharma</strong>
+                        <p>
+                            Generated by 
+                            <strong>InvoiceFlow</strong> 
+                            by Rajat Sharma
+                        </p>
                     </div>
+
                 </div>
             </div>
-        </div>
-    </div>
 
-    <!-- Loading Overlay -->
-    <div class="loading-overlay" id="loadingOverlay" role="status" aria-label="Generating PDF" aria-hidden="true">
-        <div class="loading-box">
-            <div class="spinner" aria-hidden="true"></div>
-            <p>Generating PDF...</p>
-            <p>This may take a few seconds</p>
         </div>
-    </div>
-
-    <!-- Toast -->
-    <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true">
-        <span id="toastMsg">Ready!</span>
     </div>
 
     <script src="script.js"></script>
